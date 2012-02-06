@@ -1,2 +1,0 @@
-//create color temp for test
-update `gxc_osg_object_sale` set`obj_color_id`=`object_id`%16 + 1
