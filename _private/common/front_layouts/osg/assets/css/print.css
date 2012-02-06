@@ -1,0 +1,28 @@
+/******** Default rules for tag ********/
+body{font-family:"Times New Roman", Times, serif;}
+img, fieldset{border:0}
+h1{font-size:1.4em;}
+h2{font-size:1.8em;}
+h3{font-size:1.1em;}
+h4{font-size:1.0em;}
+h5{font-size:1em;}
+ol, ul{list-style-type:none;}
+li {list-style-type:disc;}
+dt{font-weight:bold;}
+a{text-decoration:underline; color:#000;}
+a:hover{text-decoration:none;}
+input, select, textarea{border:1px solid #000;}
+input { padding:1px 0}
+select { padding:0; margin:0; line-height:normal;}
+div{text-align:left;}
+caption { display:none}
+table{border-collapse:separate; border-spacing:0; border-top:1px solid #000; border-left:1px solid #000;}
+th, td{ text-align:left; padding:5px; border-right:1px solid #000; border-bottom:1px solid #000;}
+
+/*//////LOGO////////////////////////////////////////////////*/
+#header * {display:none;}
+#header h1, #header h1 * {display:block; margin:0 auto; text-align:center!important;}
+/*//////All Elements display none////////////////////////////////////////////////*/
+#footer{ display:none}
+
+/*//////All Elements display////////////////////////////////////////////////*/
