@@ -188,10 +188,10 @@ class User extends CActiveRecord
          * @param string $salt
          * @return string 
          */
-	public function hashPassword($password,$salt)
-	{
-	       return md5($password.$salt);
-	}
+		public function hashPassword($password,$salt)
+		{
+		       return md5($password.$salt);
+		}
         
         /**
 	 * This is invoked before the record is saved.
@@ -207,8 +207,8 @@ class User extends CActiveRecord
 			if($this->isNewRecord)
 			{				
 				$this->created_time=$this->updated_time=$this->recent_login=time();		
-				$this->password = $this->hashPassword($this->password,ConstantDefine::USER_SALT);
-				$this->salt=ConstantDefine::USER_SALT;                                
+				$this->password = $this->hashPassword($this->password,USER_SALT);
+				$this->salt=USER_SALT;                                
 
 			}
 			else {
@@ -272,7 +272,7 @@ class User extends CActiveRecord
         public static function convertUserState($data)
 		{               
 	                 $image= ($data->status==ConstantDefine::USER_STATUS_ACTIVE) ? 'active' : 'disabled';
-			 return Yii::app()->controller->backend_asset.'/images/'.$image.'.png'; 
+			 		return Yii::app()->controller->backend_asset.'/images/'.$image.'.png'; 
 		}
         
         
