@@ -29,7 +29,7 @@ html {font-size:100.01%;}
 body {font-size:75%;color:#222;background:#fff;font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;}
 h1, h2, h3, h4, h5, h6 {font-weight:normal;color:#111;}
 h1 {font-size:2em;line-height:1;margin-bottom:0.5em;}
-h2 {font-size:1.6em;margin-bottom:0.75em;}
+h2 {font-size: 1.6em;margin-bottom: 0.75em;text-transform: uppercase;text-shadow: 1px 1px white;}
 h3 {font-size:1.4em;line-height:1;margin-bottom:1em;}
 h4 {font-size:1.2em;line-height:1.25;margin-bottom:0.3em;}
 h5 {font-size:1em;font-weight:bold;margin-bottom:1.5em;}
