@@ -14,13 +14,13 @@ class BeController extends RController
 	
         public $pageHint='';
         public $titleImage='';
-	public $backend_asset='';
+		public $backend_asset='';
                 
         
         public function __construct($id,$module=null)
-	{
-		 parent::__construct($id,$module);
-		 if(YII_DEBUG)
+		{
+		 		parent::__construct($id,$module);
+		 		if(YII_DEBUG)
                     $this->backend_asset=Yii::app()->assetManager->publish(Yii::getPathOfAlias('cms.assets.backend'), false, -1, true);
                  else 
                      $this->backend_asset=Yii::app()->assetManager->publish(Yii::getPathOfAlias('cms.assets.backend'), false, -1, false); 
@@ -30,7 +30,7 @@ class BeController extends RController
                  if(isset($_GET)){
                      $_GET = fn_clean_input($_GET);
                  }
-	}
+		}
         
         /**
          * Filter by using Modules Rights
