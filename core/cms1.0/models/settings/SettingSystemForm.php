@@ -11,13 +11,10 @@
 class SettingSystemForm extends CFormModel
 {
 	public $support_email;
-        public $page_size;
-        public $language_number;
+    public $page_size;
+    public $language_number;
         
-        public $page_slug;
-        public $term_slug;
-        public $content_slug;
-	
+       
 
 	/**
 	 * Declares the validation rules.
@@ -27,10 +24,10 @@ class SettingSystemForm extends CFormModel
 	{
 		return array(
 			// username and password are required
-			array('support_email, page_size, language_number,page_slug,term_slug,content_slug', 'required'),
-                        array('support_email', 'email'),
-                        array('language_number, page_size','numerical','integerOnly'=>true,'min'=>1),
-                        array('language_number','checkAvailableLanguage')			
+			array('support_email, page_size, language_number', 'required'),
+            array('support_email', 'email'),
+            array('language_number, page_size','numerical','integerOnly'=>true,'min'=>1),
+            array('language_number','checkAvailableLanguage')			
 		);
 	}
 
@@ -41,12 +38,8 @@ class SettingSystemForm extends CFormModel
 	{
 		return array(
 			'support_email'=>t('Support email'),
-                        'page_size'=>t('Items per page'),
-                        'language_number'=>t('Number of Language Available'),
-                    
-                        'page_slug'=>t('Page slug name'),
-                        'term_slug'=>t('Term page slug name'),
-                        'content_slug'=>t('Content details slug page name')
+            'page_size'=>t('Items per page'),
+            'language_number'=>t('Number of Language Available'),                                           
 		);
 	}
         
@@ -58,12 +51,12 @@ class SettingSystemForm extends CFormModel
 	{
 		if(!$this->hasErrors())
 		{                    
-                        //First we need to check all the Active Languages of the CMS
-                        $languages=Language::loadItems();
-                        if($this->language_number>count($languages)){
-                            $this->addError('language_number',t('Site currently supports only ').count($languages).' '.t('Languages'));
-			    return false;
-                        }
+                //First we need to check all the Active Languages of the CMS
+                $languages=Language::loadItems();
+                if($this->language_number>count($languages)){
+                    $this->addError('language_number',t('Site currently supports only ').count($languages).' '.t('Languages'));
+	    			return false;
+                }
 			
 		}
 	}

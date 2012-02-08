@@ -23,23 +23,7 @@
         <?php echo $form->error($model,'language_number'); ?>
 </div>
     
-<div class="row">
-        <?php echo $form->labelEx($model,'page_slug'); ?>
-        <?php echo $form->textField($model,'page_slug'); ?>
-        <?php echo $form->error($model,'page_slug'); ?>
-</div>
-    
-<div class="row">
-        <?php echo $form->labelEx($model,'term_slug'); ?>
-        <?php echo $form->textField($model,'term_slug'); ?>
-        <?php echo $form->error($model,'term_slug'); ?>
-</div>
-    
-<div class="row">
-        <?php echo $form->labelEx($model,'content_slug'); ?>
-        <?php echo $form->textField($model,'content_slug'); ?>
-        <?php echo $form->error($model,'content_slug'); ?>
-</div>    
+ 
 <div class="row buttons">
         <?php echo CHtml::submitButton(t('Save'),array('class'=>'bebutton')); ?>
 </div>

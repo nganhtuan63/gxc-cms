@@ -48,9 +48,7 @@ class SettingsWidget extends CWidget
         $model->page_size=Yii::app()->settings->get('system', 'page_size');
         $model->language_number=Yii::app()->settings->get('system', 'language_number');
         
-        $model->page_slug=Yii::app()->settings->get('system', 'page_slug');
-        $model->term_slug=Yii::app()->settings->get('system', 'term_slug');
-        $model->content_slug=Yii::app()->settings->get('system', 'content_slug');
+       
         // if it is ajax validation request
         if(isset($_POST['ajax']) && $_POST['ajax']==='settings-form')
         {
