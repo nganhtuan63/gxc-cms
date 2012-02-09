@@ -13,6 +13,11 @@
         <?php echo $form->error($model,'site_name'); ?>
 </div>
 <div class="row">
+        <?php echo $form->labelEx($model,'slogan'); ?>
+        <?php echo $form->textField($model,'slogan'); ?>
+        <?php echo $form->error($model,'slogan'); ?>
+</div>
+<div class="row">
         <?php echo $form->labelEx($model,'site_title'); ?>
         <?php echo $form->textField($model,'site_title'); ?>
         <?php echo $form->error($model,'site_title'); ?>

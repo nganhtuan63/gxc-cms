@@ -10,7 +10,8 @@
  */
 class SettingGeneralForm extends CFormModel
 {
-	public $site_name;
+		public $site_name;
+		public $slogan;
         public $site_title;
         public $site_description;
         
@@ -27,7 +28,7 @@ class SettingGeneralForm extends CFormModel
 		return array(
 			// username and password are required
 			array('site_name, homepage', 'required'),                      		
-                        array('site_title, site_description', 'safe'), 
+            array('site_title, site_description, slogan', 'safe'), 
 		);
 	}
 
@@ -38,9 +39,10 @@ class SettingGeneralForm extends CFormModel
 	{
 		return array(
 			'site_name'=>t('Site name'),
-                        'site_title'=>t('Site title'),
-                        'site_description'=>t('Site description'),
-                        'homepage'=>t('Page name used as Homepage'),
+			'slogan'=>t('Slogan'),
+            'site_title'=>t('Site title'),
+            'site_description'=>t('Site description'),
+            'homepage'=>t('Page name used as Homepage'),
 		);
 	}
                 

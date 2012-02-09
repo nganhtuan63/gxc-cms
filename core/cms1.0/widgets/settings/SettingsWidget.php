@@ -79,7 +79,8 @@ class SettingsWidget extends CWidget
         //Set Value for the Settings
         $model->site_name=Yii::app()->settings->get('general', 'site_name');
         $model->site_title=Yii::app()->settings->get('general', 'site_title');
-        $model->site_description=Yii::app()->settings->get('general', 'site_description');
+        $model->site_description=Yii::app()->settings->get('general', 'site_description');					
+		$model->slogan=Yii::app()->settings->get('general', 'slogan');
         $model->homepage=Yii::app()->settings->get('general', 'homepage');
         
         

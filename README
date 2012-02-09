@@ -5,8 +5,11 @@ The CMS is now version 1.0. It has all the features for a basic CMS. If you love
 
 This CMS uses 2 existed extensions/modules : 
 
-Rights : http://www.yiiframew...tension/rights/ 
-Translate : http://www.yiiframew...nsion/translate 
+Rights : http://www.yiiframework.com/extension/rights/
+Translate : http://www.yiiframework.com/extension/translate
+Settings : http://www.yiiframework.com/extension/settings
+
+
 Some current features of it:
 
 - Multiple languages ( Content, Categories, Pages,...)
