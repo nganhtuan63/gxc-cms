@@ -317,7 +317,7 @@ class ObjectUpdateWidget extends CWidget
                                             }
                                         }
                                         
-                                        //$object=new $types[$type]['model'];
+                                        
                                         
                              }
                              $object->object_date=date('Y-m-d H:i:s',$object->object_date);

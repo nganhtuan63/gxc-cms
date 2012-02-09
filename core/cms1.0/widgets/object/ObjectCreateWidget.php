@@ -86,7 +86,7 @@ class ObjectCreateWidget extends CWidget
                                 
                         
                         $param_content_check['new_content']=true;
-			$content_status=GxcContentPermission::getContentStatus($param_content_check,$data_content_check,
+						$content_status=GxcContentPermission::getContentStatus($param_content_check,$data_content_check,
                         $types[$type]['class']::Permissions());
                         
                         $model=new $types[$type]['class'];
@@ -145,11 +145,11 @@ class ObjectCreateWidget extends CWidget
                                                                                        
                         if(isset($_POST[$types[$type]['class']])){
                       
-                                $model->attributes=$_POST[$types[$type]['model']];
+                                $model->attributes=$_POST[$types[$type]['class']];
                                                                                       
                                 //Convert the date time publish to timestamp
                                 $model->object_date=strtotime($model->object_date);
-				$model->object_date_gmt=local_to_gmt($model->object_date);
+								$model->object_date_gmt=local_to_gmt($model->object_date);
                                 
                                 //Check which button the User click To Send to person or group
                                 $button=$_POST['which_button'];
@@ -277,7 +277,7 @@ class ObjectCreateWidget extends CWidget
                                         $model=new $types[$type]['class'];
                                         $model->object_date=date('Y-m-d H:i:s');
                                         
-                                        Yii::app()->controller->redirect(array('create'));                
+                                        Yii::app()->controller->refresh();                
                                        
                                         
                                         
