@@ -1,10 +1,29 @@
 GXC CMS is an open source CMS written on Yii Framework. It has been developed since July 2011 by Tuan Nguyen (http://www.nganhtuan.com) and Tri Nguyen (http://www.tringuyen.me) from GxcSolutions (Non-profit organization - http://www.gxcsolutions.com). This CMS can help you to make not only a newspaper specifc website ( Workflow Transfer, History tracking,...) but also a basic social network.
 
-One of the "best" features of the CMS is the Page - Layout and Blocks Module. You can create multiple pages with different layouts and you can add blocks on each page. Blocks are easy to develop for Backend and Frontend.
 
 The CMS is now version 1.0. It has all the features for a basic CMS. If you love PHP and Yii, feel free to join us to make this CMS better.
 
-I will list down all current features of the CMS.
+This CMS uses 2 existed extensions/modules : 
+
+Rights : http://www.yiiframew...tension/rights/ 
+Translate : http://www.yiiframew...nsion/translate 
+Some current features of it:
+
+- Multiple languages ( Content, Categories, Pages,...)
+- Multiple Content types ( Easily define new content type like : article, event....like wordpress posts custom fields but maybe better  )
+- User Management ( Thanks to Rights module )
+- Workflow handle ( Who can create an article, publish or cancel it, transfer to others to review )
+- Multiple layouts support ( Hm,...I should call this theme, learn more with the page management below ) 
+- Pages management : The site can create pages. Ya, a page can have different layouts that are defined abone. In each layout, we can add blocks in slots. The Blocks are ( for example : HTML Block, Content list Block, Menu Block,,...). A new block can be developed easily for backend handle and frontend appearance. 
+
+Missing and going to develope features :
+
+- Resource management ( In our old version, we already have this but we don't satisfy so we decided to re-work on it ). This is for upload files to different storages ( to current web folder, Amazon S3,...) 
+- Newsletter
+- Caching management ( Re-work) 
+- Ip and visits statistics 
+..... 
+
 
 For starting, please check this link :
 
