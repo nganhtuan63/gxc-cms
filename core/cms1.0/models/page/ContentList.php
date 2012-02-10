@@ -239,30 +239,32 @@ class ContentList extends CActiveRecord
         
         public static function suggestTags(){
             if(isset($_GET['q']) && ($keyword=trim($_GET['q']))!=='')
-		{
+			{
 			$tags=Tag::model()->suggestTags($keyword);
 			if($tags!==array())
 				echo implode("\n",$tags);
-		}
+			}
         }
         
         public static function suggestContent(){
             if(isset($_GET['q']) && ($keyword=trim($_GET['q']))!=='')
-		{
+			{
 			$type=isset($_GET['type']) ?  trim($_GET['type']) : '';
 			$tags=Object::model()->suggestContent($keyword,$type);
 			if($tags!==array())
 				echo implode("\n",$tags);
-		}
+			}
         }
         
         public static function getTerms(){            
-		$terms = Term::model()->findAll();
-		$result = array('0'=>t('All'));
-		foreach ($terms as $term) {
-			$result[$term->term_id] = $term->name;	
-		}			
-		return $result;
+			$terms = Term::model()->findAll();
+			$result = array('0'=>t('All'));
+			foreach ($terms as $term) {
+				$result[$term->term_id] = $term->name;	
+			}			
+			return $result;
 	
         }
+
+		
 }
