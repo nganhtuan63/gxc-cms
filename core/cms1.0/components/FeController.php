@@ -49,25 +49,24 @@ class FeController extends RController
             $slug=fn_clean_input($slug);
             $page = Page::model()->find(array(
                 'condition'=>'slug=:paramId',
-                'params'=>array(':paramId'=>$slug))); 
+                'params'=>array(':paramId'=>$slug))); 								
             if($page){
                 $this->layout='main';	    
                 //depend on the layout of the page, use the corresponding file to render                
-                    $this->render('common.front_layouts.'.$page->layout.'.'.$page->display_type,array('page'=>$page));                
-                
-            } else {
+                    $this->render('common.front_layouts.'.$page->layout.'.'.$page->display_type,array('page'=>$page));                                
+            } else {            	  
                   throw new CHttpException('404',t('Oops! Page not found!'));
             }
         }
         
         public function error(){
             if($error=Yii::app()->errorHandler->error)
-	    {
-	    	if(Yii::app()->request->isAjaxRequest)
-	    		echo $error['message'];
-	    	else
-	        	$this->render('error', $error);
-	    }
+		    {
+		    	if(Yii::app()->request->isAjaxRequest)
+		    		echo $error['message'];
+		    	else
+		        	$this->renderPageSlug('error');
+		    }
         }
        
 
