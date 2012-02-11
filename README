@@ -1,9 +1,10 @@
 GXC CMS is an open source CMS written on Yii Framework. It has been developed since July 2011 by Tuan Nguyen (http://www.nganhtuan.com) and Tri Nguyen (http://www.tringuyen.me) from GxcSolutions (Non-profit organization - http://www.gxcsolutions.com). This CMS can help you to make not only a newspaper specifc website ( Workflow Transfer, History tracking,...) but also a basic social network.
 
+You can check the demo at : http://www.gxccms.com
 
 The CMS is now version 1.0. It has all the features for a basic CMS. If you love PHP and Yii, feel free to join us to make this CMS better.
 
-This CMS uses 2 existed extensions/modules : 
+This CMS uses existed extensions/modules : 
 
 Rights : http://www.yiiframework.com/extension/rights/
 Translate : http://www.yiiframework.com/extension/translate
