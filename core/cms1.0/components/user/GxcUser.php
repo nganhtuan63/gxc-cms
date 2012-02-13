@@ -65,7 +65,7 @@ class GxcUser extends CWebUser{
          */
         public function login($identity, $duration)
         {
-                parent::login($identity, $duration);
+                return parent::login($identity, $duration);
 				//Yii::app()->getSession()->remove('current_user');
                 //Yii::app()->getSession()->add('current_user', $identity->getModel());
         }
