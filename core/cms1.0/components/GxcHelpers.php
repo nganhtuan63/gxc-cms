@@ -28,9 +28,10 @@ class GxcHelpers {
                     throw new CHttpException(400,t('Invalid request. Please do not repeat this request again.'));
     }
     
-    public static function getAvailableLayouts($render_view=false){                    
-            $layouts = array();
-            
+    public static function getAvailableLayouts($render_view=false){
+    	
+			//Need to implement Cache HERE                    
+            $layouts = array();            
             $folders = get_subfolders_name(Yii::getPathOfAlias('common.front_layouts')) ;    
             foreach($folders as $folder){
                 $temp=parse_ini_file(Yii::getPathOfAlias('common.front_layouts.'.$folder.'').DIRECTORY_SEPARATOR.'info.ini');
@@ -42,9 +43,10 @@ class GxcHelpers {
             return $layouts;            
     }
     
-    public static function getAvailableBlocks($render_view=false){                    
-            $blocks = array();
-            
+    public static function getAvailableBlocks($render_view=false){
+    	
+			//Need to implement Cache HERE                    
+            $blocks = array();            
             $folders = get_subfolders_name(Yii::getPathOfAlias('common.front_blocks')) ;    
             foreach($folders as $folder){
                 $temp=parse_ini_file(Yii::getPathOfAlias('common.front_blocks.'.$folder.'').DIRECTORY_SEPARATOR.'info.ini');
@@ -56,12 +58,27 @@ class GxcHelpers {
             
             return $blocks;
     }
+	
+	public static function getStorages($get_class=false){		
+			    
+		$temp=parse_ini_file(Yii::getPathOfAlias('common.storages.'.'').DIRECTORY_SEPARATOR.'info.ini');								
+		$types=array();		
+		foreach ($temp['storages'] as $key=>$value){
+			if(!$get_class)
+				$types[$key]=trim(ucfirst($key));
+			else {
+				$types[$key]=trim($value);
+			}		
+		}		
+		return $types;
+	}
        
     
-    public static function getAvailableContentType($render_view=false){                    
-            $types = array();
-            
-            $folders = get_subfolders_name(Yii::getPathOfAlias('common.content_type')) ;    
+    public static function getAvailableContentType($render_view=false){
+    	
+			//Need to implement Cache HERE                    
+            $types = array();            
+            $folders = get_subfolders_name(Yii::getPathOfAlias('common.content_type')) ;   						 
             foreach($folders as $folder){
                 $temp=parse_ini_file(Yii::getPathOfAlias('common.content_type.'.$folder.'').DIRECTORY_SEPARATOR.'info.ini');
                  if($render_view)
@@ -69,9 +86,56 @@ class GxcHelpers {
                  else 
                     $types[$temp['id']]=$temp;
             }        
-            
+            			
             return $types;
     }
+	
+	public static function getRemoteFile(&$resource,$model,&$process,&$message,$path,$ext,$changeresname=true){
+		
+		
+		if(GxcHelpers::remoteFileExists($path)){
+			$storages=GxcHelpers::getStorages(true);	
+			$upload_handle=new $storages[$model->where](ConstantDefine::UPLOAD_MAX_SIZE,ConstantDefine::UPLOAD_MIN_SIZE);					
+			if(!$upload_handle->getRemoteFile($resource,$model,$process,$message,$path,$ext,true)){
+				$model->addError('upload', $message);
+			} else {
+				$process=true;
+				return true;
+			} 
+		} else {
+			$process=false;
+			$message=t('Remote file not exist');
+			return false;
+		}
+
+	}
+
+
+	public static function remoteFileExists($url) {
+		$curl = curl_init($url);
+	    
+		//don't fetch the actual page, you only want to check the connection is ok
+		curl_setopt($curl, CURLOPT_NOBODY, true);
+	    
+		//do request
+		$result = curl_exec($curl);
+	    
+		$ret = false;
+	    
+		//if request did not fail
+		if ($result !== false) {
+		    //if request was ok, check response code
+		    $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);  
+	    
+		    if ($statusCode == 200) {
+			$ret = true;   
+		    }
+		}
+	    
+		curl_close($curl);
+	    
+		return $ret;
+	}
     
     public static function generateAvatarThumb($upload_name,$folder,$filename){		
             //Start to check if the File type is Image type, so we Generate Everythumb size for it
@@ -108,5 +172,26 @@ class GxcHelpers {
             return $default;
         }
     }
+	
+	
+	public static function renderTextBoxResourcePath($data){
+		return '<input type="text" class="pathResource" value="'.$data->getFullPath().'" />';
+	}
+	
+	public static function renderLinkPreviewResource($data){
+		switch($data->resource_type){
+			case 'image':
+				return '<a href="'.$data->getFullPath().'" rel="prettyPhoto" title="'.$data->resource_name.'">'.t('View').'</a>';
+				break;
+			case 'video':
+				return '<a href="'.app()->controller->backend_asset.'/js/jwplayer/player.swf?width=470&amp;height=320&flashvars=file='.$data->getFullPath().'" title="'.$data->resource_name.'" rel="prettyPhoto">'.t('View').'</a>';
+				break;
+			default:
+				return '<a href="'.$data->getFullPath().'">'.t('View').'</a>';
+				break;
+				
+		}
+		
+	}
     
 }

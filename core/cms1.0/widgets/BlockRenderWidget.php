@@ -47,20 +47,20 @@ class BlockRenderWidget extends CWidget
 		
 				$block =GxcHelpers::loadDetailModel('Block', $page_block->block_id);                                                                		
 				if($block){	                                        
-                                        $block_ini=parse_ini_file(Yii::getPathOfAlias('common.front_blocks.'.$block->type).DIRECTORY_SEPARATOR.'info.ini');                                                   
-                                        //Include the class            
-                                        Yii::import('common.front_blocks.'.$block->type.'.'.$block_ini['class']);                                        					
-                                        if($this->data!=null)
-                                        	$this->widget('common.front_blocks.'.$block->type.'.'.$block_ini['class'], array('block'=>$block,'page'=>$this->page,'layout_asset'=>$this->layout_asset,'data'=>$this->data));
-										else  	     
-											$this->widget('common.front_blocks.'.$block->type.'.'.$block_ini['class'], array('block'=>$block,'page'=>$this->page,'layout_asset'=>$this->layout_asset));
+                        $block_ini=parse_ini_file(Yii::getPathOfAlias('common.front_blocks.'.$block->type).DIRECTORY_SEPARATOR.'info.ini');                                                   
+                        //Include the class            
+                        Yii::import('common.front_blocks.'.$block->type.'.'.$block_ini['class']);                                        					
+                        if($this->data!=null)
+                        	$this->widget('common.front_blocks.'.$block->type.'.'.$block_ini['class'], array('block'=>$block,'page'=>$this->page,'layout_asset'=>$this->layout_asset,'data'=>$this->data));
+						else  	     
+							$this->widget('common.front_blocks.'.$block->type.'.'.$block_ini['class'], array('block'=>$block,'page'=>$this->page,'layout_asset'=>$this->layout_asset));
 				} else {
 					echo '';
 				}
 			}
 	    }
 	    else {
-		echo '';
+			echo '';
 	    }
         }
         

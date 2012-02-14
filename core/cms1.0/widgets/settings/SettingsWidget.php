@@ -42,11 +42,13 @@ class SettingsWidget extends CWidget
     
     protected function showSystemForm(){
         
-        $model=new SettingSystemForm;        
+        $model=new SettingSystemForm;
+		settings()->deleteCache();        
         //Set Value for the Settings
         $model->support_email=Yii::app()->settings->get('system', 'support_email');
         $model->page_size=Yii::app()->settings->get('system', 'page_size');
         $model->language_number=Yii::app()->settings->get('system', 'language_number');
+		$model->keep_file_name_upload=Yii::app()->settings->get('system', 'keep_file_name_upload');
         
        
         // if it is ajax validation request
@@ -59,6 +61,7 @@ class SettingsWidget extends CWidget
         // collect user input data
         if(isset($_POST['SettingSystemForm']))
         {
+        		settings()->deleteCache();
                 $model->attributes=$_POST['SettingSystemForm'];                  
                 if($model->validate()){
                         foreach($model->attributes as $key=>$value){
@@ -76,6 +79,7 @@ class SettingsWidget extends CWidget
         
         $model=new SettingGeneralForm;        
         
+		settings()->deleteCache();
         //Set Value for the Settings
         $model->site_name=Yii::app()->settings->get('general', 'site_name');
         $model->site_title=Yii::app()->settings->get('general', 'site_title');
@@ -96,6 +100,7 @@ class SettingsWidget extends CWidget
         {
                 $model->attributes=$_POST['SettingGeneralForm'];                  
                 if($model->validate()){
+                		settings()->deleteCache();
                         foreach($model->attributes as $key=>$value){
                             Yii::app()->settings->set('general', $key, $value);
                         }                                                 

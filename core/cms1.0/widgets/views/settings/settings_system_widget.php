@@ -22,6 +22,11 @@
         <?php echo $form->textField($model,'language_number'); ?>
         <?php echo $form->error($model,'language_number'); ?>
 </div>
+<div class="row">
+        <?php echo $form->labelEx($model,'keep_file_name_upload'); ?>
+        <?php echo $form->dropDownList($model,'keep_file_name_upload',SettingSystemForm::filenameUpload()); ?>
+        <?php echo $form->error($model,'keep_file_name_upload'); ?>
+</div>
     
  
 <div class="row buttons">

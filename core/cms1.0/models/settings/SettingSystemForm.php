@@ -13,6 +13,7 @@ class SettingSystemForm extends CFormModel
 	public $support_email;
     public $page_size;
     public $language_number;
+	public $keep_file_name_upload;
         
        
 
@@ -24,7 +25,7 @@ class SettingSystemForm extends CFormModel
 	{
 		return array(
 			// username and password are required
-			array('support_email, page_size, language_number', 'required'),
+			array('support_email, page_size, language_number, keep_file_name_upload', 'required'),
             array('support_email', 'email'),
             array('language_number, page_size','numerical','integerOnly'=>true,'min'=>1),
             array('language_number','checkAvailableLanguage')			
@@ -40,6 +41,7 @@ class SettingSystemForm extends CFormModel
 			'support_email'=>t('Support email'),
             'page_size'=>t('Items per page'),
             'language_number'=>t('Number of Language Available'),                                           
+            'keep_file_name_upload'=>t('Keep file name when uploading'),
 		);
 	}
         
@@ -59,6 +61,13 @@ class SettingSystemForm extends CFormModel
                 }
 			
 		}
+	}
+	
+	public static function filenameUpload(){
+		return array(
+			'0'=>t('No'),
+			'1'=>t('Yes'),
+		);
 	}
 
 	
