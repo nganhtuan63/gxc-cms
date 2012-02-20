@@ -43,8 +43,8 @@ class UserIdentityDb extends CUserIdentity{
 		$this->errorCode=self::ERROR_USERNAME_INVALID;
                 
             }
-	    else if(!$user->validatePassword($this->password,$user->salt)){
-		$this->errorCode=self::ERROR_PASSWORD_INVALID;
+	    			else if(!$user->validatePassword($this->password,$user->salt)){
+					$this->errorCode=self::ERROR_PASSWORD_INVALID;
                 
             }
 	    else

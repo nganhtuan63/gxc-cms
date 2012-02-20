@@ -61,20 +61,23 @@ class ObjectUpdateWidget extends CWidget
             $types= GxcHelpers::getAvailableContentType();
             $type=(string)$model->object_type;
             
-             //Import the Content Type Class
-             Yii::import('common.content_type.'.$type.'.'.$types[$type]['class']);
+            //Import the Content Type Class
+            Yii::import('common.content_type.'.$type.'.'.$types[$type]['class']);
             
-            
+            $typeClassObj = new $types[$type]['class'];
+			
+			$content_resources=$typeClassObj->Resources();
+			
             //Check if the User has the Permission to update the Content
             if(GxcContentPermission::checkUpdatePermission($param_content_check,$data_content_check,
-                    $types[$type]['class']::Permissions())){
+                    $typeClassObj->Permissions())){
                 
                     //Convert the object date from timestamp to datetime format
                     $model->object_date=date('Y-m-d H:i:s',$model->object_date);
                     
                     //Get available content Status that the Object can be sent to
                     $content_status=GxcContentPermission::getContentStatus($param_content_check,$data_content_check,
-                        $types[$type]['class']::Permissions());
+                        $typeClassObj->Permissions());
                     
                     //If the Object is Pending and being sent to someone, get that person info
                     if($model->object_status==ConstantDefine::OBJECT_STATUS_PENDING){
@@ -294,8 +297,29 @@ class ObjectUpdateWidget extends CWidget
                                             $object->addError('person',t('User not found'));
                                     }
                             }
+							
+							//Work with Resource Binding
+							$resource=array();
+							$resource_upload=array();
+							foreach($content_resources as $res){																											
+								$resource_upload[]=GxcHelpers::getArrayResourceObjectBinding('resource_upload_'.$res['type']);
+							}    
+							
+							$i=0;
+							$count_resource=0;
+							foreach($content_resources as $cres){
+								$j=1;
+								foreach ($resource_upload[$i] as $res_up){									
+									$j++;
+									$count_resource++;
+								}
+								$i++;
+							}
+															
+							$object->total_number_resource=$count_resource; 
+							
                             
-                             if($object->save()){          
+                            if($object->save()){          
                                         user()->setFlash('success',t('Update content Successfully!'));  
                                         $trans->object_id=$object->object_id;
                                         $trans->save();   
@@ -316,6 +340,27 @@ class ObjectUpdateWidget extends CWidget
                                                 unset($obj_term);
                                             }
                                         }
+										
+										//Re update for Resource
+										ObjectResource::model()->deleteAll('object_id = :id',array(':id'=>$object->object_id));
+										$i=0;
+										$count_resource=0;
+										foreach($content_resources as $cres){
+											$j=1;
+											foreach ($resource_upload[$i] as $res_up){
+												$obj_res = new ObjectResource;
+												$obj_res->resource_id=$res_up['resid'];
+												$obj_res->object_id=$object->object_id;
+												$obj_res->description='';
+												$obj_res->type=$cres['type'];
+												$obj_res->resource_order=$j;
+																																		
+												$obj_res->save();
+												$j++;
+												$count_resource++;
+											}
+											$i++;
+										}	
                                         
                                         
                                         
@@ -340,7 +385,8 @@ class ObjectUpdateWidget extends CWidget
                                   'content_status'=>$content_status,
                                   'terms'=>$terms,
                                   'selected_terms'=>$selected_terms,
-                                  'type'=>$type
+                                  'type'=>$type,
+                                  'content_resources'=>$content_resources
                                 ));                    
                     
             }

@@ -52,6 +52,9 @@ class ObjectCreateWidget extends CWidget
         
         //Selected Terms
         $selected_terms=array();
+		
+		
+		
         
         
         //If $type is empty then redirect to choose content type page
@@ -76,18 +79,29 @@ class ObjectCreateWidget extends CWidget
                     
                     //Import the Content Type Class
                     Yii::import('common.content_type.'.$type.'.'.$types[$type]['class']);
+					
+					//Init the class
+					$typeClassObj = new $types[$type]['class'];
+						
+					$content_resources=$typeClassObj->Resources();
+							
+					
+					
                     
                     //We start to implement the checking Permission HERE
                     $param_content_check=array();
                     $data_content_check=array();
                     $param_content_check['type']=$type;
+										
+                    
                     if(GxcContentPermission::checkCreatePermission($param_content_check,$data_content_check,  
-                            $types[$type]['class']::Permissions())){
+                            $typeClassObj->Permissions())){
                                 
                         
                         $param_content_check['new_content']=true;
+						
 						$content_status=GxcContentPermission::getContentStatus($param_content_check,$data_content_check,
-                        $types[$type]['class']::Permissions());
+                        $typeClassObj->Permissions());
                         
                         $model=new $types[$type]['class'];
                         // Uncomment the following line if AJAX validation is needed
@@ -251,7 +265,27 @@ class ObjectCreateWidget extends CWidget
                                         } else {
                                                 $model->addError('person',t('User not found'));
                                         }
-                                }                                
+                                }  
+
+								//Work with Resource Binding
+								$resource=array();
+								$resource_upload=array();
+								foreach($content_resources as $res){																											
+									$resource_upload[]=GxcHelpers::getArrayResourceObjectBinding('resource_upload_'.$res['type']);
+								}    
+								
+								$i=0;
+								$count_resource=0;
+								foreach($content_resources as $cres){
+									$j=1;
+									foreach ($resource_upload[$i] as $res_up){									
+										$j++;
+										$count_resource++;
+									}
+									$i++;
+								}
+																
+								$model->total_number_resource=$count_resource;                          
                                 
                                 if($model->save()){          
                                         user()->setFlash('success',t('Create new Content Successfully!'));  
@@ -262,8 +296,7 @@ class ObjectCreateWidget extends CWidget
                                         // We will add them to Object Terms
                                         foreach($selected_terms as $tx_key=>$t){                                                                                                                                                   
                                             foreach($t['terms'] as $key=>$st_terms){                                                
-                                                
-                                                
+                                                                                                
                                                 $obj_term=new ObjectTerm();
                                                 $obj_term->object_id=$model->object_id;
                                                 $obj_term->term_id=$st_terms['id'];
@@ -274,6 +307,27 @@ class ObjectCreateWidget extends CWidget
                                             }
                                         }
                                         
+										//Update Resource Binding Here										
+										$i=0;
+										$count_resource=0;
+										foreach($content_resources as $cres){
+											$j=1;
+											foreach ($resource_upload[$i] as $res_up){
+												$obj_res = new ObjectResource;
+												$obj_res->resource_id=$res_up['resid'];
+												$obj_res->object_id=$model->object_id;
+												$obj_res->description='';
+												$obj_res->type=$cres['type'];
+												$obj_res->resource_order=$j;
+																																			
+												$obj_res->save();
+												$j++;
+												$count_resource++;
+											}
+											$i++;
+										}																				
+										
+										//Re-init new Model
                                         $model=new $types[$type]['class'];
                                         $model->object_date=date('Y-m-d H:i:s');
                                         
@@ -300,7 +354,8 @@ class ObjectCreateWidget extends CWidget
                                       'content_status'=>$content_status,
                                       'terms'=>$terms,
                                       'selected_terms'=>$selected_terms,
-                                      'type'=>$type
+                                      'type'=>$type,
+                                      'content_resources'=>$content_resources
                                     ));
                     }
                 

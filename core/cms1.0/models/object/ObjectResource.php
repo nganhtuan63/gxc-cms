@@ -38,10 +38,10 @@ class ObjectResource extends CActiveRecord
 		return array(
 			array('resource_order', 'numerical', 'integerOnly'=>true),
 			array('object_id, resource_id', 'length', 'max'=>20),
-			array('description', 'safe'),
+			array('description,type', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('object_id, resource_id, resource_order, description', 'safe', 'on'=>'search'),
+			array('object_id, resource_id, resource_order, description,type', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -66,6 +66,7 @@ class ObjectResource extends CActiveRecord
 			'resource_id' => t('Resource'),
 			'resource_order' => t('Resource Order'),
 			'description' => t('Description'),
+			'type' => t('Type'),
 		);
 	}
 
@@ -84,6 +85,7 @@ class ObjectResource extends CActiveRecord
 		$criteria->compare('resource_id',$this->resource_id,true);
 		$criteria->compare('resource_order',$this->resource_order);
 		$criteria->compare('description',$this->description,true);
+		$criteria->compare('type',$this->type,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -20,12 +20,13 @@
                 )); ?>
             <input type="hidden" id="block_title" value="" />
             <input type="hidden" id="block_id" value="" />
-        <input type="button" class="button" value="<?php echo('Save'); ?>" onClick="addBlock(window.parent.document.getElementById(window.name));" />
-        <input type="button" class="button" value="<?php echo('Cancel'); ?>" onClick="window.parent.cancelOnAddBlock(window.parent.document.getElementById(window.name));" />
+        <input type="button" class="button" value="<?php echo('Save'); ?>" onClick="addBlock(window.parent.document.getElementById('<?php echo $_GET['iframe_id']; ?>'));" />
+        <input type="button" class="button" value="<?php echo('Cancel'); ?>" onClick="window.parent.cancelOnAddBlock(window.parent.document.getElementById('<?php echo $_GET['iframe_id']; ?>'));" />
         </div>
         <script type="text/javascript">
             
             function addBlock(object){
+            	
                 if($('#change_block_form').val()==''){
                     alert('<?php echo t('Please choose a block before adding!')?>');
                 } else {

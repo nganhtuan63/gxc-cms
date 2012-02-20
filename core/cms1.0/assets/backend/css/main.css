@@ -282,7 +282,7 @@ padding: 0 0 0 10px;
 min-height: 300px;
 background: white;
 float: left;
-width: 80%;
+width: 75%;
 }
 
 .page-content{
@@ -596,7 +596,7 @@ padding:0px 0px 20px 0;
 margin:0;
 }
 
-#list-item-ul li, #content_list_manual li, #content_list li{
+#list-item-ul li, #content_list_manual li, #content_list li, .sortable-list li{
 border-bottom:1px solid #CCC;       
 /*padding: 10px 0px 10px 15px; */
 padding:0px;
