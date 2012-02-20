@@ -90,18 +90,18 @@ class GxcHelpers {
             return $types;
     }
 	
-	public static function getRemoteFile(&$resource,$model,&$process,&$message,$path,$ext,$changeresname=true){
-		
-		
+	public static function getRemoteFile(&$resource,$model,&$process,&$message,$path,$ext,$changeresname=true,$max_size=ConstantDefine::UPLOAD_MAX_SIZE,$min_size=ConstantDefine::UPLOAD_MIN_SIZE,$allow=array()){
+				
 		if(GxcHelpers::remoteFileExists($path)){
-			$storages=GxcHelpers::getStorages(true);	
-			$upload_handle=new $storages[$model->where](ConstantDefine::UPLOAD_MAX_SIZE,ConstantDefine::UPLOAD_MIN_SIZE);					
+			$storages=GxcHelpers::getStorages(true);		
+			$upload_handle=new $storages[$model->where]($max_size,$min_size,$allow);									
 			if(!$upload_handle->getRemoteFile($resource,$model,$process,$message,$path,$ext,true)){
 				$model->addError('upload', $message);
 			} else {
 				$process=true;
 				return true;
 			} 
+			
 		} else {
 			$process=false;
 			$message=t('Remote file not exist');
@@ -191,6 +191,66 @@ class GxcHelpers {
 				break;
 				
 		}
+		
+	}
+	
+	public static function getArrayResourceObjectBinding($ownid){
+		       
+			   
+        $upload_files=array();
+		
+		
+		if(!isset($_POST['upload_id_'.$ownid.'_link'])){
+			$arr_file_link=array();						
+			return $upload_files;
+		} 
+		if(!isset($_POST['upload_id_'.$ownid.'_resid'])){
+			$arr_file_resid=array();
+			return $upload_files;
+		}
+		
+		if(!isset($_POST['upload_id_'.$ownid.'_type'])){
+			$arr_file_type=array();
+			return $upload_files;
+		}
+		
+		$arr_file_link=isset($_POST['upload_id_'.$ownid.'_link']) ? $_POST['upload_id_'.$ownid.'_link'] : array() ;
+		$arr_file_resid=isset($_POST['upload_id_'.$ownid.'_resid']) ? $_POST['upload_id_'.$ownid.'_resid'] : array() ;
+		$arr_file_type=isset($_POST['upload_id_'.$ownid.'_type']) ? $_POST['upload_id_'.$ownid.'_type'] : array() ;
+		if(count($arr_file_link)>0){
+            for($i=0; $i<count($arr_file_link);$i++){
+                $file=array();
+                $file['link']=$arr_file_link[$i];                
+                $file['resid']=$arr_file_resid[$i];
+				$file['type']=$arr_file_type[$i];
+                $upload_files[]=$file;
+            }
+    	} 			            	
+		
+		return $upload_files;   
+	}
+	
+	public static function getResourceObjectFromDatabase($model,$key){
+		$upload_files=array();		
+		$resources=ObjectResource::model()->findAll(array(
+									    'condition'=>'object_id = :obj and type = :type',
+									    'order' =>'resource_id ASC',
+									    'params'=> array(':obj'=>$model->object_id,':type'=>$key)));
+		if($resources & count($resources)>0){
+			foreach($resources as $res) {
+				if($find_resource=Resource::model()->findByPk($res->resource_id)){
+					$file=array();
+	                $file['link']=$find_resource->getFullPath();                
+	                $file['resid']=$find_resource->resource_id;
+					$file['type']=$find_resource->resource_type;
+	                $upload_files[]=$file;
+				}
+				
+			}
+		}								
+										
+										
+		return $upload_files;
 		
 	}
     

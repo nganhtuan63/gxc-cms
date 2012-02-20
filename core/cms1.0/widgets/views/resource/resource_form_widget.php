@@ -1,4 +1,3 @@
-  
 <div class="form">
 <?php $this->render('cmswidgets.views.notification'); ?>
 <?php $form=$this->beginWidget('CActiveForm', array(
