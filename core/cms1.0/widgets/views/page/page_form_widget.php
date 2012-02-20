@@ -329,7 +329,7 @@
         var span_html='<input type="checkbox" class="checkbox_region" id="checkbox_'+block_count+'_'+region+'_'+id+'"/><span class="span_block">'+title+'</span> - <span><select name="Page[regions]['+region+'][status][]" id="select_region_'+block_count+'_'+region+'_'+id+'"><option value="<?php echo ConstantDefine::PAGE_BLOCK_ACTIVE; ?>"><?php echo PageBlock::convertPageBlockStatus(ConstantDefine::PAGE_BLOCK_ACTIVE);?></option><option value="<?php echo ConstantDefine::PAGE_BLOCK_DISABLE; ?>"><?php echo PageBlock::convertPageBlockStatus(ConstantDefine::PAGE_BLOCK_DISABLE);?></option></select> </span> <br /><a onClick="changeAnotherBlock('+region+','+id+','+block_count+')" href="javascript:void(0);"><?php echo t('Change');?></a>&nbsp;<a onClick="editBlock('+region+','+id+','+block_count+')" href="javascript:void(0);"><?php echo t('Edit');?></a>&nbsp;<a onClick="deleteBlockFromRegion(this)" href="javascript:void(0);"><?php echo t('Delete');?></a>';
         var input_id_html='<input type="hidden" value="'+id+'" name="Page[regions]['+region+'][id][]" />';
         var input_status_html='<input type="hidden" value="<?php echo ConstantDefine::PAGE_BLOCK_ACTIVE; ?>" />';
-        var iframe_html='<div style="display:none" class="li_region_iframe"><iframe rel="'+region+'" id="iframe_region_'+block_count+'_'+region+'_'+id+'" src="<?php echo $this->add_existed_block_url; ?>" width="100%" onLoad="autoResize(this)" height="30px" /></div>';
+        var iframe_html='<div style="display:none" class="li_region_iframe"><iframe rel="'+region+'" id="iframe_region_'+block_count+'_'+region+'_'+id+'" src="<?php echo $this->add_existed_block_url; ?>&iframe_id=iframe_region_'+block_count+'_'+region+'_'+id+'" width="100%" onLoad="autoResize(this)" height="30px" /></div>';
         var li_html='<li class="li_region" id="li_region_'+block_count+'_'+region+'_'+id+'">'+span_html+input_id_html+input_status_html+iframe_html+'</li>';                
         $('#ul_region_'+region).append(li_html); 
         $('#select_region_'+block_count+'_'+region+'_'+id).val(status);
@@ -344,7 +344,7 @@
         var span_html='<input type="checkbox" class="checkbox_region" id="checkbox_'+old_block_count+'_'+region+'_'+id+'"/><span class="span_block">'+title+'</span> - <span><select name="Page[regions]['+region+'][status][]" id="select_region_'+old_block_count+'_'+region+'_'+id+'"><option value="<?php echo ConstantDefine::PAGE_BLOCK_ACTIVE; ?>"><?php echo PageBlock::convertPageBlockStatus(ConstantDefine::PAGE_BLOCK_ACTIVE);?></option><option value="<?php echo ConstantDefine::PAGE_BLOCK_DISABLE; ?>"><?php echo PageBlock::convertPageBlockStatus(ConstantDefine::PAGE_BLOCK_DISABLE);?></option></select> </span> <br /><a onClick="changeAnotherBlock('+region+','+id+','+old_block_count+')" href="javascript:void(0);"><?php echo t('Change');?></a>&nbsp;<a onClick="editBlock('+region+','+id+','+old_block_count+')" href="javascript:void(0);"><?php echo t('Edit');?></a>&nbsp;<a onClick="deleteBlockFromRegion(this)" href="javascript:void(0);"><?php echo t('Delete');?></a>';
         var input_id_html='<input type="hidden" value="'+id+'" name="Page[regions]['+region+'][id][]" />';
         var input_status_html='<input type="hidden" value="<?php echo ConstantDefine::PAGE_BLOCK_ACTIVE; ?>" name="Page[regions]['+region+'][status][]" />';
-        var iframe_html='<div style="display:none" class="li_region_iframe"><iframe rel="'+region+'" id="iframe_region_'+old_block_count+'_'+region+'_'+id+'" src="<?php echo $this->add_existed_block_url; ?>" width="100%" onLoad="autoResize(this)" height="30px" /></div>';       
+        var iframe_html='<div style="display:none" class="li_region_iframe"><iframe rel="'+region+'" id="iframe_region_'+old_block_count+'_'+region+'_'+id+'" src="<?php echo $this->add_existed_block_url; ?>&iframe_id=&iframe_id=iframe_region_'+block_count+'_'+region+'_'+id+'" width="100%" onLoad="autoResize(this)" height="30px" /></div>';       
         $(old_object).empty().append(span_html+input_id_html+input_status_html+iframe_html).attr('id','li_region_'+old_block_count+'_'+region+'_'+id);
     }
         
@@ -354,14 +354,14 @@
     
     function changeAnotherBlock(region,id,count){         
         
-        $('#li_region_'+count+'_'+region+'_'+id).children('div.li_region_iframe').children('iframe').attr('src','<?php echo $this->add_existed_block_url; ?>');
+        $('#li_region_'+count+'_'+region+'_'+id).children('div.li_region_iframe').children('iframe').attr('src','<?php echo $this->add_existed_block_url; ?>&iframe_id='+$('#li_region_'+count+'_'+region+'_'+id).children('div.li_region_iframe').children('iframe').attr('id'));
         $('#li_region_'+count+'_'+region+'_'+id).children('div.li_region_iframe').children('iframe').attr('height','30px');
         $('#li_region_'+count+'_'+region+'_'+id).children('div.li_region_iframe').show();
     }
     
     function editBlock(region,id,count){         
         
-        $('#li_region_'+count+'_'+region+'_'+id).children('div.li_region_iframe').children('iframe').attr('src','<?php echo $this->update_block_url; ?>&id='+id);
+        $('#li_region_'+count+'_'+region+'_'+id).children('div.li_region_iframe').children('iframe').attr('src','<?php echo $this->update_block_url; ?>&id='+id+'&iframe_id='+$('#li_region_'+count+'_'+region+'_'+id).children('div.li_region_iframe').children('iframe').attr('id'));
         $('#li_region_'+count+'_'+region+'_'+id).children('div.li_region_iframe').children('iframe').attr('height','30px');
         $('#li_region_'+count+'_'+region+'_'+id).children('div.li_region_iframe').show();
     }
@@ -393,7 +393,7 @@
         var current_region=$('a.tab-current:first').attr('rel');
         current_region=current_region.split('_');
         current_region=current_region[2];                                
-        $('#iframe_region_'+current_region).attr('src','<?php echo $this->add_existed_block_url; ?>');
+        $('#iframe_region_'+current_region).attr('src','<?php echo $this->add_existed_block_url; ?>&iframe_id='+$('#iframe_region_'+current_region).attr('id'));
         $('#iframe_region_'+current_region).attr('height','30px');
         $('#div_iframe_region_'+current_region).show();                
     }
@@ -403,7 +403,7 @@
         current_region=current_region.split('_');
         current_region=current_region[2];
                                 
-        $('#iframe_region_'+current_region).attr('src','<?php echo $this->add_new_block_url; ?>/embed/iframe');
+        $('#iframe_region_'+current_region).attr('src','<?php echo $this->add_new_block_url; ?>/embed/iframe/iframe_id/iframe_region_'+current_region);
         $('#div_iframe_region_'+current_region).show();
     }
     

@@ -44,11 +44,47 @@ class ResourceCreateWidget extends CWidget
         if(isset($_POST['ResourceUploadForm']))
         {                
 				$model->attributes=$_POST['ResourceUploadForm'];												
-            	$model->upload=CUploadedFile::getInstance($model,'upload');				
+            	$model->upload=CUploadedFile::getInstance($model,'upload');		
+				$allow_types=array();		
+				$max_size=ConstantDefine::UPLOAD_MAX_SIZE;
+				$min_size=ConstantDefine::UPLOAD_MIN_SIZE;
                 
 				$resource = new Resource;        
-                				 
-                $resource->resource_type=$model->type;                                               
+               
+			   //Is it has content type and resource type params?
+			   
+			    
+			   
+                $content_type_param=isset($_GET['content_type']) ? trim($_GET['content_type']) : '';
+				$resource_type_param=isset($_GET['type']) ? trim($_GET['type']) : '';
+				
+								
+																
+				if(($content_type_param!='')&&($resource_type_param!='')){
+					
+					  
+					//Get content type	
+					$types=GxcHelpers::getAvailableContentType();
+					if(isset($types[$content_type_param])){						
+						Yii::import('common.content_type.'.$content_type_param.'.'.$types[$content_type_param]['class']);
+						//Init content type class
+						$typeClassObj = new $types[$content_type_param]['class'];
+						//Get Resource lists
+						$resources=$typeClassObj->Resources();						
+						if(isset($resources[$resource_type_param])){
+							$allow_types=$resources[$resource_type_param]['allow'];
+							$max_size=$resources[$resource_type_param]['maxSize'];
+							$min_size=$resources[$resource_type_param]['minSize'];
+						}  
+					}					
+
+				}
+				
+				
+							 
+               
+			   
+			    $resource->resource_type=$model->type;                                               
                 if($model->link!=''){
                     $temp_ext=strtolower(substr($model->link, -4));
                     if($temp_ext[0]!='.'){
@@ -64,7 +100,8 @@ class ResourceCreateWidget extends CWidget
                                 $process=false;
                             } else {
                                 //Start to Save to the Remote File
-                                if(!GxcHelpers::getRemoteFile($resource,$model,$process,$message,$model->link,$ext)){
+                                                                
+                                if(!GxcHelpers::getRemoteFile($resource,$model,$process,$message,$model->link,$ext,true,$max_size,$min_size,$allow_types)){
                                     $model->addError('link', t('Error while saving Image'));
                                     $process=false;
                                 }
@@ -93,7 +130,7 @@ class ResourceCreateWidget extends CWidget
 							$model->where='local';
 						}																		
 						//First we need to check if the file size is allowed?
-						$upload_handle=new $storages[$model->where](ConstantDefine::UPLOAD_MAX_SIZE,ConstantDefine::UPLOAD_MIN_SIZE);											
+						$upload_handle=new $storages[$model->where]($max_size,$min_size,$allow_types);											
 						if(!$upload_handle->uploadFile($resource,$model,$process,$message)){
 							$model->addError('upload', $message);
 							$process=false;
@@ -112,9 +149,15 @@ class ResourceCreateWidget extends CWidget
 					$resource->resource_type=$model->type;
                     $resource->resource_body=trim($model->body);  										                  
                     if($resource->save()){
-                    	user()->setFlash('success',t('Create new Resource Successfully!'));
-						Yii::app()->controller->redirect(array('create'));
-                    }                                 
+                    	if((isset($_GET['parent_call']))&&(isset($_GET['type']))){
+                    		$this->render('cmswidgets.views.resource.resource_upload_iframe_return',array('resource'=>$resource));
+							Yii::app()->end();
+                    	} else {
+                    		user()->setFlash('success',t('Create new Resource Successfully!'));
+							Yii::app()->controller->redirect(array('create'));
+                    		}                                 
+                    	}
+                    	
 					
                 }
 				
