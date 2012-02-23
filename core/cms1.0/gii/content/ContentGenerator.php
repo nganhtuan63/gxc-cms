@@ -1,5 +1,5 @@
 <?php
 class ContentGenerator extends CCodeGenerator
 {
-    public $codeModel='core.gii.content.ContentCode';
+    public $codeModel='cms.gii.content.ContentCode';
 }
