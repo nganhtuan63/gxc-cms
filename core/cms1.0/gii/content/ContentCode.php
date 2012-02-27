@@ -40,13 +40,13 @@ class ContentCode extends CCodeModel
         $iniPath = $contentPath. '\info.ini';
 		$objectPath = $contentPath. '\\'. $this->getContentClass(). '.php';
 		$widgetPath = $contentPath. '\object_form_widget.php'; 
-		$iconPath = $contentPath. '\assets\calendar.png';
+		$iconPath = $contentPath. '\assets\richtext.png';
 		
 		//Get the path of template files (in the folder templates)
         $iniFile = $this->render($this->templatepath.'\info.ini');
  		$objectFile = $this->render($this->templatepath.'\content.php');
  		$widgetFile = $this->render($this->templatePath. '\object_form_widget.php');
- 		$iconFile = $this->render($this->templatePath. '\assets\calendar.png');
+ 		$iconFile = $this->render($this->templatePath. '\assets\richtext.png');
  		
  		//generate code
         $this->files[]=new CCodeFile($iniPath, $iniFile);

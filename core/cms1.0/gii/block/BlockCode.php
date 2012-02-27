@@ -15,7 +15,7 @@ class BlockCode extends CCodeModel
     {
         return array_merge(parent::rules(), array(
             array('blockName', 'required'),
-            array('blockName', 'match', 'pattern'=>'/^\w+$/'),
+            array('blockName', 'match', 'pattern'=>'/^\w+/'),
           
         ));
     }
