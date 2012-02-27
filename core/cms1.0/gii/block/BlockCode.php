@@ -85,8 +85,8 @@ class BlockCode extends CCodeModel
     public function getBlockClass($blockName)
     {
     	$blockClass = ucwords(strtolower($blockName));
-    	$blockClass = preg_replace('/^[\s]+/','',$blockClass); // Strip off the starting spaces
-    	$blockClass = preg_replace('/[\s]+$/','',$blockClass); // Strip off the ending spaces
+    	$blockClass = preg_replace('/\s[\s]+/','',$blockClass);    // Strip off multiple spaces 
+    	$blockClass = preg_replace('/[\s\W]+/','',$blockClass);    // Strip off spaces and non-alpha-numeric
     	return $blockClass.'Block';
     }
 }
