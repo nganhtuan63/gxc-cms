@@ -149,7 +149,7 @@ class ResourceCreateWidget extends CWidget
 					$resource->resource_type=$model->type;
                     $resource->resource_body=trim($model->body);  										                  
                     if($resource->save()){
-                    	if((isset($_GET['parent_call']))&&(isset($_GET['type']))){
+                    	if((isset($_GET['parent_call']))){
                     		$this->render('cmswidgets.views.resource.resource_upload_iframe_return',array('resource'=>$resource));
 							Yii::app()->end();
                     	} else {

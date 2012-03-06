@@ -51,20 +51,35 @@
 	        </div>
         </div>
                
-        <div class="row">
+        <div class="row" style="<?php if(isset($_GET['ckeditor'])) echo 'display:none;' ; ?>">
                 <?php echo $form->labelEx($model,'name',array()); ?>
-                <?php echo $form->textField($model,'name'); ?>
+                <?php echo $form->textField($model,'name',array()); ?>
                 <?php echo $form->error($model,'name'); ?>
                 
         </div>
-        <div class="row">
+        <div class="row" style="<?php if(isset($_GET['ckeditor'])) echo 'display:none;' ; ?>">
                 <?php echo $form->labelEx($model,'body',array()); ?>
-                <?php echo $form->textArea($model,'body',array('style'=>'min-height:25px !important')); ?>
-                <?php echo $form->error($model,'body'); ?>
-                
+                <?php echo $form->textArea($model,'body',array('style'=>'min-height:25px !important;')); ?>
+                <?php echo $form->error($model,'body'); ?>                
         </div>
-        
-  
+        <?php if(isset($_GET['ckeditor'])) :?>
+        	<div>
+        	<div class="row" style="float:left; width:70px">
+        		<label><?php echo t('Width'); ?></label>
+        		<input type="text" name="width" value="" style="width:50px!important;"/>
+        	</div>
+        	<div class="row" style="float:left; width:70px">
+        		<label><?php echo t('Height'); ?></label>
+        		<input type="text" name="height" value="" style="width:50px!important;"/>
+        	</div>
+        	<div class="row" style="float:left; width:120px">
+        		<label><?php echo t('Alt'); ?></label>
+        		<input type="text" name="alt" value="" style="width:100px!important;" />
+        	</div>
+        	<div class="clear"></div>
+        	</div>
+        <?php endif; ?>
+          
         <div class="row buttons">
         <?php echo CHtml::submitButton(t('Save'),array('class'=>'bebutton')); ?>
 		</div>

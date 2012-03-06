@@ -66,4 +66,4 @@
 </div><!-- form -->
 
 <!-- //Render Partial for Javascript Stuff -->
-<?php $this->render('cmswidgets.views.object.object_form_javascript',array('model'=>$model,'form'=>$form)); ?>
+<?php $this->render('cmswidgets.views.object.object_form_javascript',array('model'=>$model,'form'=>$form,'type'=>$type)); ?>

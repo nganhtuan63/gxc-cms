@@ -32,7 +32,12 @@
          <?php echo $form->error($model,'object_name'); ?>									
 </div>
 
-<div id="bodywrap">
-         <?php echo $form->textArea($model,'object_content',array('tabindex'=>'2','class'=>'specialContent')); ?>
+<div id="small_buttons_insert" align="right">
+		<span><?php echo t('Insert'); ?></span>
+		<img valign="top" alt="Image" title="Image" onClick="insertFileToContent('image');" src="<?php echo Yii::app()->controller->backend_asset; ?>/images/insert_image.png" />
+		<!--<img valign="top" onClick="insertFileToContent('video');" src="<?php echo Yii::app()->controller->backend_asset; ?>/images/insert_video.png" />-->		
+</div>
+<div id="bodywrap">		
+         <?php echo $form->textArea($model,'object_content',array('tabindex'=>'2','class'=>'specialContent','id'=>'ckeditor_content')); ?>
          <?php echo $form->error($model,'object_content'); ?>                                                          
 </div>
