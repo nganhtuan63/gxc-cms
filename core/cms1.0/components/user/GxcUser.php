@@ -66,8 +66,7 @@ class GxcUser extends CWebUser{
         public function login($identity, $duration)
         {
                 return parent::login($identity, $duration);
-				//Yii::app()->getSession()->remove('current_user');
-                //Yii::app()->getSession()->add('current_user', $identity->getModel());
+				
         }
  
         /**
@@ -78,6 +77,9 @@ class GxcUser extends CWebUser{
         {
                 // I always remove the session variable model.
                 Yii::app()->getSession()->remove('current_user');
+				Yii::app()->session->clear();
+				Yii::app()->session->destroy();
+				
                 parent::logout();
         }
         

@@ -30,6 +30,8 @@ class BeController extends RController
                  if(isset($_GET)){
                      $_GET = fn_clean_input($_GET);
                  }
+				 
+				 
 		}
         
         /**
