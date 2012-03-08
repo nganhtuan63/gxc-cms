@@ -34,7 +34,9 @@ class <?php echo $this->getBlockClass($this->blockName); ?> extends CWidget
     {     
        if(isset($this->block) && ($this->block!=null)){
        			//Start working with <?php echo $this->blockName; ?> here
-				                                                          	       		     
+				$params=unserialize($this->block->params);
+	    		$this->setParams($params);                            
+            	$this->render(BlockRenderWidget::setRenderOutput($this),array());                                                          	       		     
 		}
 		Yii::app()->end();	  
        
