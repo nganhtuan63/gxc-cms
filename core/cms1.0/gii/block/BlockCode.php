@@ -34,20 +34,20 @@ class BlockCode extends CCodeModel
 	public function prepare()
     {
     	$blockID = $this->getBlockID($this->blockName);
-   	    $blockPath = COMMON_FOLDER.'\front_blocks\\'. $blockID;
+   	    $blockPath = COMMON_FOLDER.DIRECTORY_SEPARATOR.'front_blocks'.DIRECTORY_SEPARATOR. $blockID;
    	    $blockClass = $this->getBlockClass($this->blockName);
 
    	    //Get the path of new code to be generated
-        $iniPath = $blockPath. '\info.ini';
-		$blockInputPath = $blockPath. '\\'. $blockID.'_block_input.php';
-		$blockOutputPath = $blockPath. '\\'.$blockID.'_block_output.php'; 
-		$blockClassPath = $blockPath.'\\'.$blockClass. '.php';
+        $iniPath = $blockPath.DIRECTORY_SEPARATOR.'info.ini';
+		$blockInputPath = $blockPath.DIRECTORY_SEPARATOR. $blockID.'_block_input.php';
+		$blockOutputPath = $blockPath.DIRECTORY_SEPARATOR.$blockID.'_block_output.php'; 
+		$blockClassPath = $blockPath.DIRECTORY_SEPARATOR.$blockClass. '.php';
 		
 		//Get the path of template files (in the folder templates)
-        $iniFile = $this->render($this->templatepath.'\info.ini');
- 		$blockInputFile = $this->render($this->templatepath.'\block_input.php');
- 		$blockOutputFile = $this->render($this->templatePath. '\block_output.php');
- 		$blockClassFile = $this->render($this->templatePath. '\Block.php');
+        $iniFile = $this->render($this->templatepath.DIRECTORY_SEPARATOR.'info.ini');
+ 		$blockInputFile = $this->render($this->templatepath.DIRECTORY_SEPARATOR.'block_input.php');
+ 		$blockOutputFile = $this->render($this->templatePath.DIRECTORY_SEPARATOR.'block_output.php');
+ 		$blockClassFile = $this->render($this->templatePath.DIRECTORY_SEPARATOR.'Block.php');
  		
  		//generate code
         $this->files[]=new CCodeFile($iniPath, $iniFile);

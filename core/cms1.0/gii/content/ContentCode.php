@@ -34,19 +34,19 @@ class ContentCode extends CCodeModel
 	 */
 	public function prepare()
     {
-   	    $contentPath = COMMON_FOLDER.'\content_type\\'. lcfirst($this->contentName);
+   	    $contentPath = COMMON_FOLDER.DIRECTORY_SEPARATOR.'content_type'.DIRECTORY_SEPARATOR.lcfirst($this->contentName);
 
    	    //Get the path of new code to be generated
-        $iniPath = $contentPath. '\info.ini';
-		$objectPath = $contentPath. '\\'. $this->getContentClass(). '.php';
-		$widgetPath = $contentPath. '\object_form_widget.php'; 
-		$iconPath = $contentPath. '\assets\richtext.png';
+        $iniPath = $contentPath.DIRECTORY_SEPARATOR.'info.ini';
+		$objectPath = $contentPath.DIRECTORY_SEPARATOR. $this->getContentClass().'.php';
+		$widgetPath = $contentPath. DIRECTORY_SEPARATOR.'object_form_widget.php'; 
+		$iconPath = $contentPath.DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'richtext.png';
 		
 		//Get the path of template files (in the folder templates)
-        $iniFile = $this->render($this->templatepath.'\info.ini');
- 		$objectFile = $this->render($this->templatepath.'\content.php');
- 		$widgetFile = $this->render($this->templatePath. '\object_form_widget.php');
- 		$iconFile = $this->render($this->templatePath. '\assets\richtext.png');
+        $iniFile = $this->render($this->templatepath.DIRECTORY_SEPARATOR.'info.ini');
+ 		$objectFile = $this->render($this->templatepath.DIRECTORY_SEPARATOR.'content.php');
+ 		$widgetFile = $this->render($this->templatePath. DIRECTORY_SEPARATOR.'object_form_widget.php');
+ 		$iconFile = $this->render($this->templatePath. DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'richtext.png');
  		
  		//generate code
         $this->files[]=new CCodeFile($iniPath, $iniFile);
