@@ -235,6 +235,7 @@ class GxcHelpers {
 		$resources=ObjectResource::model()->findAll(array(
 									    'condition'=>'object_id = :obj and type = :type',
 									    'order' =>'resource_id ASC',
+									    'limit'=>$model->total_number_resource > 0 ? $model->total_number_resource : 1 ,
 									    'params'=> array(':obj'=>$model->object_id,':type'=>$key)));
 		if($resources & count($resources)>0){
 			foreach($resources as $res) {
@@ -252,6 +253,15 @@ class GxcHelpers {
 										
 		return $upload_files;
 		
+	}
+	
+	public static function getObjectMeta($id,$meta){
+		$object_meta=ObjectMeta::model()->find('(meta_object_id = :id) and (meta_key=:meta_key)',array(':id'=>$id,':meta_key'=>$meta));
+		if($object_meta){
+			return $object_meta->meta_value;
+		} else {
+			return null;
+		}
 	}
     
 }

@@ -585,9 +585,11 @@ class Object extends CActiveRecord
 			'sort'=>$sort,
 		));
 	}
+
+	
         
         
-        public function suggestContent($keyword,$type='',$limit=20)
+    public function suggestContent($keyword,$type='',$limit=20)
 	{
 		if($type==''){
 			$objects=$this->findAll(array(
