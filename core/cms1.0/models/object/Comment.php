@@ -41,11 +41,12 @@ class Comment extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('topic, content, status, author_name, email, create_time', 'required'),
+			array('topic, content, author_name, email', 'required'),
 			array('status, create_time', 'numerical', 'integerOnly'=>true),
 			array('object_id', 'length', 'max'=>20),
 			array('topic', 'length', 'max'=>256),
 			array('author_name, email', 'length', 'max'=>128),
+			array('email', 'email'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('comment_id, object_id, topic, content, status, author_name, email, create_time', 'safe', 'on'=>'search'),
@@ -119,4 +120,19 @@ class Comment extends CActiveRecord
 		return 'Not defined';
 	}
 	
+	protected function beforeSave()
+	{
+		if(parent::beforeSave())
+    	{
+        	if($this->isNewRecord)
+        	{
+            	$this->create_time=time();
+            	$this->status = ConstantDefine::COMMENT_STATUS_PENDING;
+            	$this->object_id = (int)$_GET['id'];
+        	}
+        	return true;
+    	}
+    	else 
+    		return false;
+	}
 }
