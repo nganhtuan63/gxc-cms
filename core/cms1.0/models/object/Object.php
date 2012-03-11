@@ -704,4 +704,16 @@ class Object extends CActiveRecord
                        )  
             );
         }
+        
+        /**
+         * Increase the comment count by 1 whenever new comment was created.
+         */
+        public function increaseCommentCount()
+        {
+        	if($this->comment_count != null)
+        		$this->comment_count++;
+        	else
+        		$this->comment_count = 1;
+        	$this->save();
+        }
 }

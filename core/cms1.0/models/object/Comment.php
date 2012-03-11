@@ -120,15 +120,31 @@ class Comment extends CActiveRecord
 		return 'Not defined';
 	}
 	
+	/* 
+	 * Before saving:
+	 * 		Update the create_time, status and object_id
+	 * 		Increase the object's comment_count by 1
+	 * @see CActiveRecord::beforeSave()
+	 */
 	protected function beforeSave()
 	{
 		if(parent::beforeSave())
     	{
         	if($this->isNewRecord)
         	{
+        		//Update the create_time, status and object_id
             	$this->create_time=time();
             	$this->status = ConstantDefine::COMMENT_STATUS_PENDING;
             	$this->object_id = (int)$_GET['id'];
+            	
+            	//Increase the object's comment_count by 1
+            	$object = Object::model()->findByPk($this->object_id);
+            	if($object !=null)
+            	{
+            		$object->increaseCommentCount();
+            	}
+            	else 
+            		return false;
         	}
         	return true;
     	}
