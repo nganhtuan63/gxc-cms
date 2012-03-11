@@ -56,7 +56,7 @@ class CommentManageStatusWidget extends CWidget
                 break;
                     
         }
-        if ($object_id != 0)
+        if ($this->object_id != 0)
         {
         	$dataProvider=new CActiveDataProvider('Comment', array(
 			'criteria'=>array(
