@@ -56,14 +56,20 @@ class CommentManageStatusWidget extends CWidget
                 break;
                     
         }
+        $criteria = new CDbCriteria;
+        $sort = new CSort;
+        
         if ($this->object_id != 0)
         {
+        	$criteria->condition = 'object_id = :object_id';
+        	$criteria->params = array(':object_id'=>$this->object_id,);
+        	$sort->attributes = array('create_time',);
+        	$sort->defaultOrder = 'create_time DESC';
+        	
         	$dataProvider=new CActiveDataProvider('Comment', array(
-			'criteria'=>array(
-        		'object_id'=>$this->object_id,
-				'order'=>'t.status, t.create_time DESC',
-        		),
-			));	
+				'criteria'=>$criteria,
+        		'sort'=>$sort,
+			));
         }
         else 
         {
