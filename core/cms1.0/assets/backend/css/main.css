@@ -212,6 +212,10 @@ background:url('../images/menu_icons/menu_resource.png') no-repeat transparent;
 background:url('../images/menu_icons/menu_sun.png') no-repeat transparent;
 }
 
+#menu_caching{
+background:url('../images/menu_icons/caching.png') no-repeat transparent;
+}
+
 #left-sidebar ul li{
 opacity: 1.0;
 display:block;
