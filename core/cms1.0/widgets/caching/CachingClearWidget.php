@@ -58,6 +58,7 @@ class CachingClearWidget extends CWidget
 				default:					
 					break;
 			}
+			Yii::app()->controller->redirect(array('becaching/clear'));
 		}   
 		$this->render('cmswidgets.views.caching.caching_widget',array()); 
                                  
