@@ -1,0 +1,103 @@
+/* 
+Author: 			Stefan Vervoort
+Author URI: 		http://www.divitomedia.com/
+Version:			0.9
+
+Project:			
+Description:					
+
+---------------------------------------------------------------------------------------
+TABLE OF CONTENTS
+	-- 
+	-- 
+	--
+---------------------------------------------------------------------------------------
+
+/* ------------------------------------------------------------------------------------
+BASICS						 */
+
+	html{min-height:101%;}
+	body{margin: 0px auto;font: 12px/18px Arial, Helvetica, sans-serif;text-align: center;color: #555; background:#F4F5F6}
+		
+	a{						}
+	a:hover	{				}
+	a:active{				}
+	a:visited{				}
+
+	.left{					float:left; }
+	.right{					float:right; }
+	.clear{					clear:both; }
+	
+	img.left{				margin:0 1em 1em 0; }
+	img.right{				margin:0 0 1em 1em; }
+	
+	.padding{				padding:10px; }
+	#content p{				margin:1.1em 0; }
+	
+
+/* ------------------------------------------------------------------------------------
+NAVIGATION MENU				 */
+
+	#navigation, #navigation ul {		padding:0;	margin:0; list-style:none; line-height:1; float:left;	}
+	#navigation a {						display:block; padding:6px 10px; text-decoration:none;	}
+	#navigation a:hover{				text-decoration:underline; padding:6px 10px; }
+	#navigation li { 					float:left; width:auto;	}
+	#navigation li{						padding:0; margin:0; }
+	#navigation li ul li{				padding:1px 0px;}
+	#navigation li ul li a{				padding:6px 10px; width:110px; }
+	#navigation li ul { 				position:absolute; padding-top:1px; width:130px; left:-999em; }
+	#navigation li ul ul {				margin: -1.5em 0 0 130px;	}
+	
+	#navigation li:hover ul ul, #navigation li:hover ul ul ul, #navigation li.sfhover ul ul, #navigation li.sfhover ul ul ul {	left: -999em;	}
+	#navigation li:hover ul, #navigation li li:hover ul, #navigation li li li:hover ul, 
+	#navigation li.sfhover ul, #navigation li li.sfhover ul, #navigation li li li.sfhover ul { left: auto;	}
+
+
+/* ------------------------------------------------------------------------------------
+STRUCTURE					 */
+
+	#container{				overflow:hidden;  }
+	#header{				}
+	#footer{				clear:both; }
+	#content{	background:#fff; text-align:left			}
+	#right{					}
+	#left{					}
+	.wide{width: 900px;margin: 25px 25px 0px;}
+	
+	.full, .three_fourth, .half, .three_eighth, .one_third, .two_third, .one_fourth, .two_nineth, .four_nineth {float: left;position: relative;overflow: hidden;margin-bottom: 12px;}
+	.one_fourth {width: 204px;margin-right: 28px;}
+	.half {width: 408px;margin-right: 28px;}
+	.last {margin-right: 0px;}
+	.left{float:left}
+
+
+/* ------------------------------------------------------------------------------------
+CUSTOM		
+*/
+h1, h2, h3, h4, h5 {font-family: "Droid Sans", Arial, Helvetica, sans-serif;color: #333;font-weight: normal;}
+h1 {font-size: 22px;line-height: 29px;margin-bottom: 12px; font-style: normal}
+h2 {font-size:17px; border-bottom:1px solid #EFF0F1; padding-bottom:10px; text-transform:uppercase}
+h5 {font-size: 13px;line-height: 18px;margin-bottom: 2px;}
+b, strong {font-weight: bold;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
