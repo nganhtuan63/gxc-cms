@@ -586,10 +586,28 @@ class Object extends CActiveRecord
 		));
 	}
 
+	public static function buildLink($obj){						
+		if($obj->object_id)
+			return FRONT_SITE_URL."/article?id=".$obj->object_id."&slug=".$obj->object_slug;
+		else 
+			return null;
+	}
 	
-        
-        
-    public function suggestContent($keyword,$type='',$limit=20)
+	public function getObjectLink(){						
+		if($this->object_id){
+			$class_name=GxcHelpers::getClassOfContent($this->object_type);
+			if($class_name!='Object'){
+				 Yii::import('common.content_type.'.$this->object_type.'.'.$class_name);
+				 				
+			}
+			return $class_name::buildLink($this);
+		} else {
+			return null;
+		}
+	}
+
+	    
+	public function suggestContent($keyword,$type='',$limit=20)
 	{
 		if($type==''){
 			$objects=$this->findAll(array(

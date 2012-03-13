@@ -30,65 +30,108 @@ class GxcHelpers {
     
     public static function getAvailableLayouts($render_view=false){
     	
-			//Need to implement Cache HERE                    
-            $layouts = array();            
-            $folders = get_subfolders_name(Yii::getPathOfAlias('common.front_layouts')) ;    
-            foreach($folders as $folder){
-                $temp=parse_ini_file(Yii::getPathOfAlias('common.front_layouts.'.$folder.'').DIRECTORY_SEPARATOR.'info.ini');
-                 if($render_view)
-                    $layouts[$temp['id']]=$temp['name'];
-                 else 
-                    $layouts[$temp['id']]=$temp;
-            }                               
+			$cache_id= $render_view ? 'gxchelpers-available-layouts' : 'gxchelpers-available-layouts-false';
+    		$layouts=Yii::app()->cache->get($cache_id);	    		 		
+			
+			if($layouts===false)
+			{
+			    //Need to implement Cache HERE                    
+	            $layouts = array();            
+	            $folders = get_subfolders_name(Yii::getPathOfAlias('common.front_layouts')) ;    
+	            foreach($folders as $folder){
+	                $temp=parse_ini_file(Yii::getPathOfAlias('common.front_layouts.'.$folder.'').DIRECTORY_SEPARATOR.'info.ini');
+	                 if($render_view)
+	                    $layouts[$temp['id']]=$temp['name'];
+	                 else 
+	                    $layouts[$temp['id']]=$temp;
+	            }  
+			    Yii::app()->cache->set($cache_id,$layouts,7200);
+			}
+			                             
             return $layouts;            
     }
+	
+	
     
     public static function getAvailableBlocks($render_view=false){
-    	
-			//Need to implement Cache HERE                    
-            $blocks = array();            
-            $folders = get_subfolders_name(Yii::getPathOfAlias('common.front_blocks')) ;    
-            foreach($folders as $folder){
-                $temp=parse_ini_file(Yii::getPathOfAlias('common.front_blocks.'.$folder.'').DIRECTORY_SEPARATOR.'info.ini');
-                 if($render_view)
-                    $blocks[$temp['id']]=$temp['name'];
-                 else 
-                    $blocks[$temp['id']]=$temp;
-            }        
-            
+    		$cache_id= $render_view ? 'gxchelpers-available-blocks' : 'gxchelpers-available-blocks-false';
+    		$blocks=Yii::app()->cache->get($cache_id);	
+						
+			if($blocks===false){
+				                  
+	            $blocks = array();            
+	            $folders = get_subfolders_name(Yii::getPathOfAlias('common.front_blocks')) ;    
+	            foreach($folders as $folder){
+	                $temp=parse_ini_file(Yii::getPathOfAlias('common.front_blocks.'.$folder.'').DIRECTORY_SEPARATOR.'info.ini');
+	                 if($render_view)
+	                    $blocks[$temp['id']]=$temp['name'];
+	                 else 
+	                    $blocks[$temp['id']]=$temp;
+	            }     
+				Yii::app()->cache->set($cache_id,$blocks,7200);   
+			}
+			            
             return $blocks;
     }
 	
 	public static function getStorages($get_class=false){		
-			    
-		$temp=parse_ini_file(Yii::getPathOfAlias('common.storages.'.'').DIRECTORY_SEPARATOR.'info.ini');								
-		$types=array();		
-		foreach ($temp['storages'] as $key=>$value){
-			if(!$get_class)
-				$types[$key]=trim(ucfirst($key));
-			else {
-				$types[$key]=trim($value);
-			}		
-		}		
+		$cache_id= $get_class ? 'gxchelpers-storages' : 'gxchelpers-storages-false';
+    	$types=Yii::app()->cache->get($cache_id);		
+		if($types===false){
+			$temp=parse_ini_file(Yii::getPathOfAlias('common.storages.'.'').DIRECTORY_SEPARATOR.'info.ini');								
+			$types=array();		
+			foreach ($temp['storages'] as $key=>$value){
+				if(!$get_class)
+					$types[$key]=trim(ucfirst($key));
+				else {
+					$types[$key]=trim($value);
+				}		
+			}
+			Yii::app()->cache->set($cache_id,$types,7200);
+		}
+				
 		return $types;
 	}
        
     
     public static function getAvailableContentType($render_view=false){
-    	
-			//Need to implement Cache HERE                    
-            $types = array();            
-            $folders = get_subfolders_name(Yii::getPathOfAlias('common.content_type')) ;   						 
-            foreach($folders as $folder){
-                $temp=parse_ini_file(Yii::getPathOfAlias('common.content_type.'.$folder.'').DIRECTORY_SEPARATOR.'info.ini');
-                 if($render_view)
-                    $types[$temp['id']]=$temp['name'];
-                 else 
-                    $types[$temp['id']]=$temp;
-            }        
+    		$cache_id= $render_view ? 'gxchelpers-content-types' : 'gxchelpers-content-types-false';
+    		$types=Yii::app()->cache->get($cache_id);
+				
+			if($types===false){
+				$types = array();            
+	            $folders = get_subfolders_name(Yii::getPathOfAlias('common.content_type')) ;   						 
+	            foreach($folders as $folder){
+	                $temp=parse_ini_file(Yii::getPathOfAlias('common.content_type.'.$folder.'').DIRECTORY_SEPARATOR.'info.ini');
+	                 if($render_view)
+	                    $types[$temp['id']]=$temp['name'];
+	                 else 
+	                    $types[$temp['id']]=$temp;
+	            }   
+				Yii::app()->cache->set($cache_id,$types,7200);
+			}                    
+                
             			
             return $types;
     }
+	
+	public static function getClassOfContent($type){
+			$cache_id='class-of-content-type'.$type;
+			$class_name=Yii::app()->cache->get($cache_id);
+			if($class_name===false){
+				$types=self::getAvailableContentType();
+				if(isset($types[$type])){
+					$class_name=$types[$type]['class'];
+					Yii::app()->cache->set($cache_id,$class_name,7200);
+				} else {
+					$class_name='Object';
+				}	
+			}
+			
+			return $class_name;
+			
+			
+	}
 	
 	public static function getRemoteFile(&$resource,$model,&$process,&$message,$path,$ext,$changeresname=true,$max_size=ConstantDefine::UPLOAD_MAX_SIZE,$min_size=ConstantDefine::UPLOAD_MIN_SIZE,$allow=array()){
 				
