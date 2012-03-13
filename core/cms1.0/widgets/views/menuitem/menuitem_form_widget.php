@@ -91,6 +91,19 @@
                     )); ?>
         </div>
         
+         <!-- Start for the form of Content Autocomplete -->
+        <div class="type_form" id="type_form_div_<?php echo ConstantDefine::MENU_TYPE_CONTENT; ?>" style="display: none">
+        <?php $this->widget('CAutoComplete', array(
+                            'name'=>'type_form_'.ConstantDefine::MENU_TYPE_CONTENT,
+                            'url'=>array('suggestContent'),
+                            'value'=> ($model->isNewRecord) ? '' : MenuItem::ReBindValueForMenuType($model->type,$model->value),
+                            'multiple'=>false,
+                            'mustMatch'=>true,
+                            'htmlOptions'=>array('size'=>50,'class'=>'text_type_form maxWidthInput','id'=>'type_form_'.ConstantDefine::MENU_TYPE_CONTENT),
+                            'methodChain'=>".result(function(event,item){ if(item!==undefined) \$(\"#menu_value\").val(item[1]);})",
+                    )); ?>
+        </div>
+        
         
         <!-- Start for the form of Term Autocomplete -->
         <div class="type_form" id="type_form_div_<?php echo ConstantDefine::MENU_TYPE_TERM; ?>" style="display: none">

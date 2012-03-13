@@ -212,6 +212,16 @@ class MenuItem extends CActiveRecord
                 }
                 Yii::app()->end();
         }
+		
+		public static function suggestContent(){
+			 $keyword='';
+			 if(isset($_GET['q']) && ($keyword=trim($_GET['q']))!==''){
+             	$names=Object::model()->suggestContent($keyword);
+				if($names!==array())
+                            echo implode("\n",$names);
+             }
+			 Yii::app()->end();
+		}
         
         public static function ReBindValueForMenuType($type,$value){
             
