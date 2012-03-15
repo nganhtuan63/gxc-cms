@@ -194,9 +194,11 @@ class MPTranslate extends CApplicationComponent{
             $language=$_POST[$key];
         elseif(isset($_GET[$key]) && !empty($_GET[$key]))
             $language=$_GET[$key];
-        else
-            $language=Yii::app()->getRequest()->getPreferredLanguage();
+        else {        	
+            $language=(Yii::app()->getRequest()->getPreferredLanguage()===false) ? Yii::app()->sourceLanguage : Yii::app()->getRequest()->getPreferredLanguage();
+		}
         
+		
         if(!key_exists($language,$this->acceptedLanguages)){
             if($language===Yii::app()->sourceLanguage)
                 $language=$this->defaultLanguage;

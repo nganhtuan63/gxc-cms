@@ -67,17 +67,19 @@ class CachingClearWidget extends CWidget
 	public function clearCache($where){
 		switch ($where) {
 				case 'frontend':
+										
 					//Send Post Request to Frontend
 					$timeout = 30;
 			        $curl    = curl_init();
 					$pvars   = array('key'=>FRONTEND_CLEAR_CACHE_KEY);
-			        curl_setopt($curl, CURLOPT_URL, FRONT_SITE_URL.'site/caching');					 
+			        curl_setopt($curl, CURLOPT_URL, FRONT_SITE_URL.'/site/caching');					 
 			        curl_setopt($curl, CURLOPT_TIMEOUT, $timeout);
 			        curl_setopt($curl, CURLOPT_POST, 1);
 			        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 			        curl_setopt($curl, CURLOPT_POSTFIELDS, $pvars);    
 			        $result = curl_exec($curl);			    
-			        curl_close ($curl);			        
+			        curl_close ($curl);		
+																								
 			        return $result=='0'?false:true;
 					break;
 				case 'backend':
