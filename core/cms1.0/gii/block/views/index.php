@@ -5,7 +5,7 @@
         <?php echo $form->labelEx($model,'blockName'); ?>
         <?php echo $form->textField($model,'blockName',array('size'=>65)); ?>
         <div class="tooltip">
-            Content class name must only contain word characters.
+            Block name must only contain word characters.
         </div>
         <?php echo $form->error($model,'blockName'); ?>
     </div>

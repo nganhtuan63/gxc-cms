@@ -6,14 +6,14 @@
  * 
  * @author Tuan Nguyen <nganhtuan63@gmail.com>
  * @version 1.0
- * @package common.front_blocks.<?php echo $this->getBlockID($this->blockName); ?>
+ * @package common.front_blocks.<?php echo $this->blockID; ?>
  */
 
-class <?php echo $this->getBlockClass($this->blockName); ?> extends CWidget
+class <?php echo $this->blockClass; ?> extends CWidget
 {
     
     //Do not delete these attr block, page and errors
-    public $id='<?php echo $this->getBlockID($this->blockName); ?>';
+    public $id='<?php echo $this->blockID; ?>';
     public $block=null;     
     public $errors=array();
     public $page=null;
