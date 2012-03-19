@@ -329,6 +329,7 @@ class ObjectUpdateWidget extends CWidget
                                         
                                         ObjectTerm::model()->deleteAll('object_id = :id',array(':id'=>$object->object_id));
                                         
+										
                                         // We have all the selected Terms for now
                                         // We will add them to Object Terms
                                         foreach($selected_terms as $tx_key=>$t){                                                                                                                                                   
@@ -340,6 +341,7 @@ class ObjectUpdateWidget extends CWidget
                                                 unset($obj_term);
                                             }
                                         }
+										
 										
 										//Re update for Resource
 										ObjectResource::model()->deleteAll('object_id = :id',array(':id'=>$object->object_id));

@@ -382,6 +382,7 @@ class Object extends CActiveRecord
 		 return array(
                     'author' => array(self::BELONGS_TO, 'User', 'object_author'),
                     'language' => array(self::BELONGS_TO, 'Language', 'lang'),
+                    
                 );  
         }
         
