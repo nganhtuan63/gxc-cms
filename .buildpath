@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+	<buildpathentry kind="src" path="core/cms1.0/extensions/settings"/>
+	<buildpathentry kind="src" path="core/cms1.0/components"/>
+	<buildpathentry kind="src" path="core/cms1.0/gii/content"/>
+	<buildpathentry kind="src" path="core/cms1.0/modules/rights"/>
+	<buildpathentry kind="src" path="core/cms1.0/gii/layout"/>
+	<buildpathentry external="true" kind="lib" path="/Applications/MAMP/htdocs/GXC-CMS/core/yii/framework"/>
+	<buildpathentry kind="src" path="core/cms1.0/gii/block"/>
+	<buildpathentry kind="src" path="core/cms1.0/models"/>
+	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
+	<buildpathentry kind="src" path="core/cms1.0/assets/ckeditor"/>
+	<buildpathentry kind="src" path="core/cms1.0/extensions/timepicker"/>
+	<buildpathentry kind="src" path="core/yii/framework"/>
+	<buildpathentry kind="src" path="core/yii/requirements"/>
+	<buildpathentry kind="src" path="core/cms1.0/modules/translate"/>
+	<buildpathentry kind="src" path="core/cms1.0/widgets"/>
+</buildpath>
