@@ -15,6 +15,9 @@
  */
 class Comment extends CActiveRecord
 {
+	//verify captcha code
+	public $verifyCode;
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -111,11 +114,11 @@ class Comment extends CActiveRecord
 		switch($status)
 		{
 			case ConstantDefine::COMMENT_STATUS_PUBLISHED :
-				return 'Published';
+				return t('Published');
 			case ConstantDefine::COMMENT_STATUS_PENDING :
-				return 'Pending';
+				return t('Pending');
 			case ConstantDefine::COMMENT_STATUS_DISCARDED :
-				return 'Discarded';
+				return t('Discarded');
 		}
 		return 'Not defined';
 	}

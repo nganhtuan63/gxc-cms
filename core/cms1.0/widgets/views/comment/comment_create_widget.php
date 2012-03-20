@@ -32,6 +32,13 @@
         <?php echo $form->textArea($model,'content',array('rows'=>6, 'cols'=>50)); ?>
         <?php echo $form->error($model,'content'); ?>
     </div>
+    <?php if(extension_loaded('gd')): ?>
+    <div class="row">
+    	<?php echo $form->labelEx($model,'verifyCode'); ?><br />
+        <?php echo $form->textField($model,'verifyCode'); ?><br />
+    	<?php $this->widget('CCaptcha'); ?>
+    </div>
+    <?php endif;?>
   
     <div class="row buttons">
         <?php echo CHtml::submitButton($model->isNewRecord ? 'Summit' : 'Save'); ?>

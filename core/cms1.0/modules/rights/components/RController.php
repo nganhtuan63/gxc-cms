@@ -64,4 +64,26 @@ class RController extends CController
 		else
 			throw new CHttpException(403, $message);
 	}
+	
+	public function actions()
+	{
+		return array(
+		// captcha action renders the CAPTCHA image displayed on the register page
+				'captcha'=>array(
+						'class'=>'CCaptchaAction',
+						'backColor'=>0xFFFFFF,
+				),
+		);
+	}
+	
+	public function accessRules()
+	{
+		return array(
+				array('allow',  // allow all users to perform 'index' and 'view' actions
+				// need to allow captcha in order to view it.
+						'actions'=>array('index','view','captcha'),
+						'users'=>array('*'),
+				),
+		);
+	}
 }
