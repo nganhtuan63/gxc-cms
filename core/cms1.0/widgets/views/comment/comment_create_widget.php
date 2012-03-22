@@ -32,11 +32,12 @@
         <?php echo $form->textArea($model,'content',array('rows'=>6, 'cols'=>50)); ?>
         <?php echo $form->error($model,'content'); ?>
     </div>
-    <?php if(extension_loaded('gd')): ?>
+    <?php if(CCaptcha::checkRequirements()): ?>
     <div class="row">
     	<?php echo $form->labelEx($model,'verifyCode'); ?><br />
+    	<div><?php $this->widget('CCaptcha'); ?></div>
         <?php echo $form->textField($model,'verifyCode'); ?><br />
-    	<?php $this->widget('CCaptcha'); ?>
+    	
     </div>
     <?php endif;?>
   

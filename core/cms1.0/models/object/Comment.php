@@ -53,6 +53,7 @@ class Comment extends CActiveRecord
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('comment_id, object_id, topic, content, status, author_name, email, create_time', 'safe', 'on'=>'search'),
+				array('verifyCode', 'captcha', 'allowEmpty'=>!CCaptcha::checkRequirements()),
 		);
 	}
 
@@ -81,6 +82,7 @@ class Comment extends CActiveRecord
 			'author_name' => 'Author Name',
 			'email' => 'Email',
 			'create_time' => 'Create Time',
+			'verifyCode' => 'Verification Code',
 		);
 	}
 
