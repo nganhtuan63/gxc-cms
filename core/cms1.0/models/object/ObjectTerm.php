@@ -53,6 +53,8 @@ class ObjectTerm extends CActiveRecord
 		return array(
 			'object_term'=>array(self::BELONGS_TO, 'Term',
 	                'term_id'),
+	         'object'=>array(self::BELONGS_TO, 'Object',
+	                'object_id'),
 		);
 	}
 

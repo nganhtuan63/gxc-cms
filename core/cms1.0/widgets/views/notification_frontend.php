@@ -1,4 +1,4 @@
-<?php if(Yii::app()->user->hasFlash('success')):?>
+<?php if(Yii::app()->user->hasFlash('success')): ?>
 <div class="successMessage block-message alert-message success notification">
 <div>
  <?php echo Yii::app()->user->getFlash('success'); ?>
