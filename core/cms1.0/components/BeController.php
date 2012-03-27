@@ -19,11 +19,8 @@ class BeController extends RController
         
         public function __construct($id,$module=null)
 		{
-		 		parent::__construct($id,$module);
-		 		if(YII_DEBUG)
-                    $this->backend_asset=Yii::app()->assetManager->publish(Yii::getPathOfAlias('cms.assets.backend'), false, -1, true);
-                 else 
-                     $this->backend_asset=Yii::app()->assetManager->publish(Yii::getPathOfAlias('cms.assets.backend'), false, -1, false); 
+		 		 parent::__construct($id,$module);
+		 		
                  if(isset($_POST)){
                      $_POST = fn_clean_input($_POST);
                  }
