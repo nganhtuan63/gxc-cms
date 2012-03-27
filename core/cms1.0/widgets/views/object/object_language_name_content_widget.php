@@ -34,7 +34,10 @@
 
 <div id="small_buttons_insert" align="right">
 		<span><?php echo t('Insert'); ?></span>
-		<img valign="top" alt="Image" title="Image" onClick="insertFileToContent('image');" src="<?php echo Yii::app()->controller->backend_asset; ?>/images/insert_image.png" />
+		<?php
+		     $backend_asset=Yii::app()->assetManager->publish(Yii::getPathOfAlias('cms.assets.backend'), false, -1, false);
+		?>
+		<img valign="top" alt="Image" title="Image" onClick="insertFileToContent('image');" src="<?php echo $backend_asset; ?>/images/insert_image.png" />
 		<!--<img valign="top" onClick="insertFileToContent('video');" src="<?php echo Yii::app()->controller->backend_asset; ?>/images/insert_video.png" />-->		
 </div>
 <div id="bodywrap">		
