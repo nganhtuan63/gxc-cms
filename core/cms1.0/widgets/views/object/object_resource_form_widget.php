@@ -4,7 +4,10 @@
     	var current_resource_max=parseInt($('#resource_upload_'+key+'_current_upload_max').val());
     	var next_resource_count=current_resource_count+1;
     							    	
-    	var link_resource_icon='<?php echo Yii::app()->controller->backend_asset;?>/images/content_icons/'+file_type+'.png';
+    	<?php
+		     $backend_asset=Yii::app()->assetManager->publish(Yii::getPathOfAlias('cms.assets.backend'), false, -1, false);
+		?>						    	
+    	var link_resource_icon='<?php echo $backend_asset;?>/images/content_icons/'+file_type+'.png';
     	if(file_type=='image'){
     		link_resource_icon=link;
     	}
@@ -17,8 +20,8 @@
 	            '<div class="item_div_wrapper">'+                                                             
 	                '<span class="item_name"><img style="background:#fff;padding:5px; border:1px dotted #CCC" src="'+link_resource_icon+'" width="50" /></span>'+                                                								                               							                
 	                '<div class="item_buttons" style="margin-top:3px; margin-left:5px">'+
-	                '<a href="<?php echo bu();?>/beresource/update/'+id+'" target="_blank"  name="editItem"><img alt="<?php echo t('Edit'); ?>" src="<?php echo Yii::app()->controller->backend_asset; ?>/images/edit.png" /></a>&nbsp;'+							                                            
-	                '<a href="javascript:void(0)" onclick="fnRemoveResourceItem(\'list_id_resource_upload_'+key+'_'+next_resource_count+'\',\''+key+'\');" name="removeItem"><img alt="<?php echo t('Delete'); ?>" src="<?php echo Yii::app()->controller->backend_asset;?>/images/disabled.png" /></a>'+  
+	                '<a href="<?php echo bu();?>/beresource/update/'+id+'" target="_blank"  name="editItem"><img alt="<?php echo t('Edit'); ?>" src="<?php echo $backend_asset; ?>/images/edit.png" /></a>&nbsp;'+							                                            
+	                '<a href="javascript:void(0)" onclick="fnRemoveResourceItem(\'list_id_resource_upload_'+key+'_'+next_resource_count+'\',\''+key+'\');" name="removeItem"><img alt="<?php echo t('Delete'); ?>" src="<?php echo $backend_asset;?>/images/disabled.png" /></a>'+  
 	                '</div>'+                                
 	            '</div>'+							                                                                                 
 		 	'</li><li class="clear"></li>';

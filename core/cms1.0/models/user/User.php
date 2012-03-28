@@ -272,7 +272,10 @@ class User extends CActiveRecord
         public static function convertUserState($data)
 		{               
 	                 $image= ($data->status==ConstantDefine::USER_STATUS_ACTIVE) ? 'active' : 'disabled';
-			 		return Yii::app()->controller->backend_asset.'/images/'.$image.'.png'; 
+					
+		     		 $backend_asset=Yii::app()->assetManager->publish(Yii::getPathOfAlias('cms.assets.backend'), false, -1, false);
+		
+			 		return $backend_asset.'/images/'.$image.'.png'; 
 		}
         
         
