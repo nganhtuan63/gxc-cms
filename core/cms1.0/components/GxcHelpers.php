@@ -61,8 +61,11 @@ class GxcHelpers {
 				                  
 	            $blocks = array();            
 	            $folders = get_subfolders_name(Yii::getPathOfAlias('common.front_blocks')) ;    
+				
 	            foreach($folders as $folder){
 	                $temp=parse_ini_file(Yii::getPathOfAlias('common.front_blocks.'.$folder.'').DIRECTORY_SEPARATOR.'info.ini');
+					
+					
 	                 if($render_view)
 	                    $blocks[$temp['id']]=$temp['name'];
 	                 else 
