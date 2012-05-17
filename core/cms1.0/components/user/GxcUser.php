@@ -13,9 +13,14 @@ class GxcUser extends CWebUser{
          * Get the Model from the session of Current User
          * @return Object from Session of Current User
          */
-        public function getModel()
-        {                        
-            return Yii::app()->getSession()->get('current_user');
+        public function getModel($attr='')
+        {
+        	$user=Yii::app()->getSession()->get('current_user');
+        	if($attr=='')                        
+            	return $user;
+			else {				
+				return $user[$attr];
+			}
         }
         
         /** This is a function that checks the field 'role'
@@ -93,14 +98,25 @@ class GxcUser extends CWebUser{
 		parent::afterLogin($fromCookie);
 		// Mark the user as a superuser if necessary.
                          
-                //Get the user from the CActiveRecord
-                $user=User::model()->findByPk($this->getId());
-				Yii::app()->getSession()->remove('current_user');
-                Yii::app()->getSession()->add('current_user',$user);
+        //Get the user from the CActiveRecord
+        //$user=User::model()->findByPk($this->getId());
 		
-                if( Rights::getAuthorizer()->isSuperuser($this->getId())===true )
-                    $this->isSuperuser = true;
-                                  
+	 	$command = Yii::app()->db->createCommand();
+	    $command->select('username,user_url,display_name,email,fbuid,status,recent_login,avatar')->from('{{user}} u')
+	    ->where('user_id='.(int)$this->getId())		
+		->limit(1);						   		
+		$user=$command->queryRow();	
+			
+		//Add only some neccessary field
+		if($user){
+			Yii::app()->getSession()->remove('current_user');
+	        Yii::app()->getSession()->add('current_user',$user);	
+	        if( Rights::getAuthorizer()->isSuperuser($this->getId())===true )
+	            $this->isSuperuser = true;                         
+		} else {
+			 throw new CHttpException(503,t('Error while Logging into your account. Please try again later.'));
+		}
+	
 		
 	}
 	/**
