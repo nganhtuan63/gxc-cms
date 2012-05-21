@@ -114,7 +114,7 @@ class Block extends CActiveRecord
 			if($this->isNewRecord)
 			{				
 				$this->created=$this->updated=time();  
-                                $this->creator=user()->getModel()->user_id;
+                                $this->creator=user()->id;
 			} else {
                                 $this->updated=time();                            
                         }
