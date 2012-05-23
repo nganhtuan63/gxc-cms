@@ -1,5 +1,5 @@
 <?php $action=$model->getIsNewRecord() ? 'Create' : 'Update';?>
-<?php Yii::app()->controller->pageTitle = TranslateModule::t(($action) . ' Message')." # ".$model->id." - ".TranslateModule::translator()->acceptedLanguages[$model->language]; ?></h1
+<?php Yii::app()->controller->pageTitle = TranslateModule::t(($action) . ' Message')." # ".$model->id." - ".TranslateModule::translator()->acceptedLanguages[$model->language]; ?>
 
 
 <?php $form=$this->beginWidget('CActiveForm', array(

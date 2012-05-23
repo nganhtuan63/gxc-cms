@@ -49,7 +49,7 @@ class FeController extends RController
         }
                
         
-        public function renderPageSlug($slug){
+        public function renderPageSlug($slug){        	 
             $slug=fn_clean_input($slug);
             $page = Page::model()->find(array(
                 'condition'=>'slug=:paramId',
@@ -59,7 +59,10 @@ class FeController extends RController
 				$this->pageTitle=$page->title;
 				$this->description=$page->description;
 				$this->keywords=$page->keywords;	    
-                //depend on the layout of the page, use the corresponding file to render                
+                //depend on the layout of the page, use the corresponding file to render  
+                
+                             
+				
                 $this->render('common.front_layouts.'.$page->layout.'.'.$page->display_type,array('page'=>$page));                                
             } else {            	  
                   throw new CHttpException('404',t('Oops! Page not found!'));
@@ -75,7 +78,7 @@ class FeController extends RController
 						
 			//Check if change Title, we will replace content in <title> with new Title
 			if($this->change_title){				
-				$output=replaceTags('<title>', '</title>', $this->pageTitle, $output);								
+				$output=replaceTags('<title>', '</title>', $this->pageTitle.' | '.SITE_NAME, $output);								
 			}	
 			
 				 
