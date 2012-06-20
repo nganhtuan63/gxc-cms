@@ -68,7 +68,7 @@ class GxcUser extends CWebUser{
          * @param UserIndentity $identity
          * @param int $duration 
          */
-        public function login($identity, $duration)
+        public function login($identity, $duration=3600)
         {
                 return parent::login($identity, $duration);
 				
