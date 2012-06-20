@@ -116,7 +116,7 @@ class Language extends CActiveRecord
 		    'condition'=>'lang_active=:type',
 		    'params'=>array(':type'=>1),
 		    'order'=>'lang_id ASC',
-		    'limit'=>settings()->get('system','language_number')
+		  //  'limit'=>settings()->get('system','language_number')
 		));
 	    } else {
 		$models=self::model()->findAll(array(
