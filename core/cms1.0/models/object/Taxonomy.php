@@ -70,7 +70,7 @@ class Taxonomy extends CActiveRecord
 			'name' => t('Name'),
 			'description' => ('Description'),
 			'type' => t('Type'),			
-			'lang' => t('Lang'),
+			'lang' => t('Language'),
                         'guid' => t('Guid')
 		);
 	}
