@@ -33,11 +33,11 @@ class UserCreateForm extends CFormModel
                 array('email', 'unique',
                         'attributeName'=>'email',
                         'className'=>'cms.models.user.User',
-                        'message'=>t('This email has been registerd.')),
+                        'message'=>t('This email has been registered.')),
                 array('username', 'unique',
                         'attributeName'=>'username',
                         'className'=>'cms.models.user.User',
-                        'message'=>t('Username has been registerd.')),
+                        'message'=>t('Username has been registered.')),
              );
 	}
 
@@ -48,7 +48,7 @@ class UserCreateForm extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-			'username'=>t('User name'),
+			'username'=>t('Username'),
                         'display_name'=>t('Display Name'),
                         'password'=>t('Password'),
                         'email'=>t('Email')                        
