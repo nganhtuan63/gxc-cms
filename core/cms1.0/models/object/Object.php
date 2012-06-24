@@ -334,7 +334,7 @@ class Object extends CActiveRecord
 			'object_slug' => t('Object Slug'),
 			'object_description' => t('Object Description'),
 			'object_keywords' => t('Object Keywords'),
-			'lang' => t('Lang'),
+			'lang' => t('Language'),
 			'object_author_name' => t('Object Author Name'),
 			'total_number_meta' => t('Total Number Meta'),
 			'total_number_resource' => t('Total Number Resource'),

@@ -77,7 +77,7 @@ class Page extends CActiveRecord
 			'parent' => t('Parent'),
 			'layout' => t('Layout'),
 			'slug' => t('Slug'),
-			'lang' => t('Lang'),
+			'lang' => t('Language'),
                         'guid' => t('Guid'),
                         'status' => t('Status'),
                         'keywords' => t('Keywords'),
