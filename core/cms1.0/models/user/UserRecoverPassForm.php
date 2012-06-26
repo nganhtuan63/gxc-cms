@@ -24,7 +24,7 @@ class UserRecoverPassForm extends CFormModel
                array('email', 'exist',
                         'attributeName'=>'email',
                         'className'=>'cms.models.user.User',
-                        'message'=>t('Email is not existed.')),                                
+                        'message'=>t('Email does not exist.')),                                
              );
 	}
 

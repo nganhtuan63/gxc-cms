@@ -67,7 +67,7 @@ class Menu extends CActiveRecord
 			'menu_id' => t('Menu'),
 			'menu_name' => t('Menu Name'),
 			'menu_description' => t('Menu Description'),
-			'lang' => t('Lang'),
+			'lang' => t('Language'),
 		);
 	}
         

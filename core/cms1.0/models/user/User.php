@@ -56,21 +56,21 @@ class User extends CActiveRecord
                         array('email', 'unique',
                         'attributeName'=>'email',
                         'className'=>'cms.models.user.User',
-                        'message'=>t('This email has been registerd.'),
+                        'message'=>t('This email has been registered.'),
                         ),
                                                                    
                         //Email must be Unique if it is on Create Scenairo
                         array('username', 'unique',
                         'attributeName'=>'username',
                         'className'=>'cms.models.user.User',
-                        'message'=>t('Username has been registerd.'),
+                        'message'=>t('Username has been registered.'),
                         ),     
                     
                         //Email must be Unique if it is on Create Scenairo
                         array('user_url', 'unique',
                         'attributeName'=>'user_url',
                         'className'=>'cms.models.user.User',
-                        'message'=>t('Url has been registerd.'),
+                        'message'=>t('Url has been registered.'),
                         'allowEmpty'=>true
                         ),
                         
