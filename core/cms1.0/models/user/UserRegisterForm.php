@@ -29,7 +29,7 @@ class UserRegisterForm extends CFormModel
 			array('email', 'unique',
                         'attributeName'=>'email',
                         'className'=>'cms.models.user.User',
-                        'message'=>t('This email has been registerd.')),
+                        'message'=>t('This email has been registered.')),
 			
 			
 		);
@@ -42,7 +42,7 @@ class UserRegisterForm extends CFormModel
 	{
 		return array(
 			
-                        'username'=>t('User name'),
+                        'username'=>t('Username'),
                         'email'=>t('Email'),
                         'password'=>t('Password')
 		);
@@ -62,7 +62,7 @@ class UserRegisterForm extends CFormModel
 			$newUser->password=$this->password;
                         
 			if(!$newUser->save()){
-                                $this->addError('email',t('Something is wrong with the Registraion Process. Please try again later!'));
+                                $this->addError('email',t('Something is wrong with the Registration Process. Please try again later!'));
                                 return false;
 			} else {                          				
                             //We can start to add Profile record here                            				

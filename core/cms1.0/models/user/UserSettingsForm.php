@@ -54,7 +54,7 @@ class UserSettingsForm extends CFormModel
                         $user_with_email=User::model()->find('LOWER(email) = :email',array(':email'=>  strtolower($this->email)));
                         if($user_with_email){
                             if($user_with_email->user_id!=user()->id){
-                                $this->addError('email',t('Email has been used.'));
+                                $this->addError('email',t('Email already in use.'));
                                 return false;
                             }
                             
