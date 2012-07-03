@@ -2,7 +2,11 @@
 class TranslateController extends TranslateBaseController{
     
         
-        
+    public function allowedActions()
+    {
+           return 'set';
+    }    
+
 	public function actionIndex(){
         if(isset($_POST['Message'])){
             foreach($_POST['Message'] as $id=>$message){
