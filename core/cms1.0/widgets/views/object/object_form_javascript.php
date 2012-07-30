@@ -1,4 +1,3 @@
-
 <?php
 	//Need to add the jwplayer for embedding video
 		if(YII_DEBUG)
