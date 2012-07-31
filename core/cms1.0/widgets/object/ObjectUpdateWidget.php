@@ -121,6 +121,7 @@ class ObjectUpdateWidget extends CWidget
                     //Set current tags for Object
                     $object->_oldTags=$object->tags;
                   
+					$object->scenario='updateWithTags';
                       
                     //Available Terms for this Object Type
                     $terms=array();  
@@ -318,6 +319,7 @@ class ObjectUpdateWidget extends CWidget
 															
 							$object->total_number_resource=$count_resource; 
 							
+
                             
                             if($object->save()){          
                                         user()->setFlash('success',t('Update content Successfully!'));  

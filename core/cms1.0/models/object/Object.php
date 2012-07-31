@@ -152,8 +152,12 @@ class Object extends CActiveRecord
         
         
         //After Save excucte update Tag Relationship
-        public static function extraAfterSave($object){
-                self::UpdateTagRelationship($object);
+        public static function extraAfterSave($object){				
+				//Check the scenairo if tags updated needed
+				if(($object->isNewRecord) || ($object->scenario='updateWithTags'))
+                	self::UpdateTagRelationship($object);
+				return;
+
         }
         
         
