@@ -344,6 +344,121 @@ class GxcHelpers {
 		
 	}
 	
+	// Query Filter String from Litpi.com
+	
+	public static function queryFilterString($str)
+		{
+			//Use RegEx for complex pattern
+			$filterPattern = array(
+									'/select.*(from|if|into)/i',  // select table query, 
+									'/0x[0-9a-f]*/i',				// hexa character
+									'/\(.*\)/',						// call a sql function
+									'/union.*select/i',				// UNION query
+									'/insert.*values/i',		// INSERT query
+									'/order.*by/i'				// ORDER BY injection
+									);
+			$str = preg_replace($filterPattern, '', $str);
+
+			//Use normal replace for simple replacement
+			$filterHaystack = array(
+									'--',	// query comment
+									'||',	// OR operator
+									'\*',	// OR operator
+									);
+
+			$str = str_replace($filterHaystack, '', $str);
+			return $str;
+		}
+	
+	
+	//XSS Clean Data Input from Litpi.com
+	public static function xss_clean($data)
+		{
+			return $data;
+			// Fix &entity\n;
+			$data = str_replace(array('&amp;','&lt;','&gt;'), array('&amp;amp;','&amp;lt;','&amp;gt;'), $data);
+			$data = preg_replace('/(&#*\w+)[\x00-\x20]+;/u', '$1;', $data);
+			$data = preg_replace('/(&#x*[0-9A-F]+);*/iu', '$1;', $data);
+			$data = html_entity_decode($data, ENT_COMPAT, 'UTF-8');
+
+			// Remove any attribute starting with "on" or xmlns
+			$data = preg_replace('#(<[^>]+?[\x00-\x20"\'])(?:on|xmlns)[^>]*+>#iu', '$1>', $data);
+
+			// Remove javascript: and vbscript: protocols
+			$data = preg_replace('#([a-z]*)[\x00-\x20]*=[\x00-\x20]*([`\'"]*)[\x00-\x20]*j[\x00-\x20]*a[\x00-\x20]*v[\x00-\x20]*a[\x00-\x20]*s[\x00-\x20]*c[\x00-\x20]*r[\x00-\x20]*i[\x00-\x20]*p[\x00-\x20]*t[\x00-\x20]*:#iu', '$1=$2nojavascript...', $data);
+			$data = preg_replace('#([a-z]*)[\x00-\x20]*=([\'"]*)[\x00-\x20]*v[\x00-\x20]*b[\x00-\x20]*s[\x00-\x20]*c[\x00-\x20]*r[\x00-\x20]*i[\x00-\x20]*p[\x00-\x20]*t[\x00-\x20]*:#iu', '$1=$2novbscript...', $data);
+			$data = preg_replace('#([a-z]*)[\x00-\x20]*=([\'"]*)[\x00-\x20]*-moz-binding[\x00-\x20]*:#u', '$1=$2nomozbinding...', $data);
+
+			// Only works in IE: <span style="width: expression(alert('Ping!'));"></span>
+			$data = preg_replace('#(<[^>]+?)style[\x00-\x20]*=[\x00-\x20]*[`\'"]*.*?expression[\x00-\x20]*\([^>]*+>#i', '$1>', $data);
+			$data = preg_replace('#(<[^>]+?)style[\x00-\x20]*=[\x00-\x20]*[`\'"]*.*?behaviour[\x00-\x20]*\([^>]*+>#i', '$1>', $data);
+			$data = preg_replace('#(<[^>]+?)style[\x00-\x20]*=[\x00-\x20]*[`\'"]*.*?s[\x00-\x20]*c[\x00-\x20]*r[\x00-\x20]*i[\x00-\x20]*p[\x00-\x20]*t[\x00-\x20]*:*[^>]*+>#iu', '$1>', $data);
+
+			// Remove namespaced elements (we do not need them)
+			$data = preg_replace('#</*\w+:\w[^>]*+>#i', '', $data);
+
+			do
+			{
+				// Remove really unwanted tags
+				$old_data = $data;
+				$data = preg_replace('#</*(?:applet|b(?:ase|gsound|link)|frame(?:set)?|i(?:frame|layer)|l(?:ayer|ink)|meta|s(?:cript|tyle)|title|xml)[^>]*+>#i', '', $data);
+			}
+			while ($old_data !== $data);
+
+			// we are done...
+			return $data;
+		}
+	
+		function curl_post_async($url, $params)
+		{
+		    foreach ($params as $key => &$val) {
+		      if (is_array($val)) $val = implode(',', $val);
+		        $post_params[] = $key.'='.urlencode($val);
+		    }
+		    $post_string = implode('&', $post_params);
+
+		    $parts=parse_url($url);
+
+		    $fp = fsockopen($parts['host'],
+		        isset($parts['port'])?$parts['port']:80,
+		        $errno, $errstr, 30);
+
+		    $out = "POST ".$parts['path']." HTTP/1.1\r\n";
+		    $out.= "Host: ".$parts['host']."\r\n";
+		    $out.= "Content-Type: application/x-www-form-urlencoded\r\n";
+		    $out.= "Content-Length: ".strlen($post_string)."\r\n";
+		    $out.= "Connection: Close\r\n\r\n";
+		    if (isset($post_string)) $out.= $post_string;
+
+		    fwrite($fp, $out);
+		    fclose($fp);
+		}
+		
+		function curl_get_async($url, $params)
+			{
+			    foreach ($params as $key => &$val) {
+			      if (is_array($val)) $val = implode(',', $val);
+			        $post_params[] = $key.'='.urlencode($val);
+			    }
+			    $post_string = implode('&', $post_params);
+
+			    $parts=parse_url($url);
+
+			    $fp = fsockopen($parts['host'],
+			        isset($parts['port'])?$parts['port']:80,
+			        $errno, $errstr, 30);
+
+			    $out = "GET ".$parts['path']." HTTP/1.1\r\n";
+			    $out.= "Host: ".$parts['host']."\r\n";
+			    $out.= "Content-Type: application/x-www-form-urlencoded\r\n";
+			    $out.= "Content-Length: ".strlen($post_string)."\r\n";
+			    $out.= "Connection: Close\r\n\r\n";
+			    if (isset($post_string)) $out.= $post_string;
+
+			    fwrite($fp, $out);
+			    fclose($fp);
+			}
+		
 	public static function getContentList($content_list_id, $max=null, $pagination=null, $return_type=ConstantDefine::CONTENT_LIST_RETURN_ACTIVE_RECORD) {
         		
 			//Find the content list model first	

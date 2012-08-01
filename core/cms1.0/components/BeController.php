@@ -19,13 +19,13 @@ class BeController extends RController
         
         public function __construct($id,$module=null)
 		{
-		 		 parent::__construct($id,$module);
-		 		
+		 		 parent::__construct($id,$module);		 		
                  if(isset($_POST)){
-                     $_POST = fn_clean_input($_POST);
+                     $_POST = GxcHelpers::xss_clean($_POST);
                  }
                  if(isset($_GET)){
-                     $_GET = fn_clean_input($_GET);
+                     $_GET = GxcHelpers::xss_clean($_GET);
+					
                  }
 				 
 				 
