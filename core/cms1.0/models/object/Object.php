@@ -358,14 +358,14 @@ class Object extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-            array('total_number_meta, total_number_resource','safe'),
+            array('total_number_meta, total_number_resource, object_slug','safe'),
 			array('object_name', 'required'),
                         array('object_content','length','min'=>10),
                         array('object_description,object_keywords,object_excerpt,object_title,guid','safe'),
 			array('object_date, object_date_gmt, object_status, comment_status, object_modified, object_modified_gmt, lang, total_number_meta, total_number_resource, object_view, like, dislike, rating_scores', 'numerical', 'integerOnly'=>true),
 			array('rating_average', 'numerical'),
 			array('object_author, object_password, object_parent, object_type, comment_count', 'length', 'max'=>20),
-			//array('object_name, guid, object_slug, object_keywords, object_author_name', 'length', 'max'=>255),
+			array('guid, object_keywords, object_author_name', 'length', 'max'=>255),
 			array('layout', 'length', 'max'=>125),
 			array('tags', 'checkTags'),
 			array('tags', 'normalizeTags'),
