@@ -252,15 +252,19 @@ class User extends CActiveRecord
          */
 	public static function getStringRoles($uid=0)
 	{
-		$roles=Rights::getAssignedRoles($uid,true);
-                $res=array();
-		foreach($roles as $r){
-			$res[]=$r->name;
-		}
-                if(count($res)>0)
-                    return implode(",",$res);
-                else 
-                    return '';
+		if($uid){
+			$roles=Rights::getAssignedRoles($uid,true);
+	                $res=array();
+			foreach($roles as $r){
+				$res[]=$r->name;
+			}
+	                if(count($res)>0)
+	                    return implode(",",$res);
+	                else 
+	                    return '';
+			
+		} 
+		return '';
 		
 	}
         
