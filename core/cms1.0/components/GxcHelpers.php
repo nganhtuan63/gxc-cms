@@ -71,10 +71,7 @@ class GxcHelpers {
 					if($type=='ini'){							
 						$temp=parse_ini_file($pathname);
 						if($render_view){
-							if($temp['path']!='.')
-								$blocks[$temp['path'].$temp['id']]=$temp['name'];
-							else
-								$blocks[$temp['id']]=$temp['name'];
+							$blocks[$temp['id']]=$temp['name'];								
 						}		                    
 		                 else 
 		                    $blocks[$temp['id']]=$temp;
