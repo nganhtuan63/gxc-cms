@@ -40,7 +40,7 @@ class BlockUpdateWidget extends CWidget
             $current_type=$model->type;
             
             $block_ini=parse_ini_file(Yii::getPathOfAlias('common.front_blocks.'.$current_type).DIRECTORY_SEPARATOR.'info.ini');            
-            $model->type=$current_type;
+
             
             //Include the class            
             Yii::import('common.front_blocks.'.$current_type.'.'.$block_ini['class']);

@@ -24,8 +24,9 @@
 <div class="row">
         
 </div>    
-<?php          
-    $this->render('common.front_blocks.'.$type.'.'.$type.'_block_input',array(   
+<?php    
+	$current_type_name=(strpos($type,'.')===false) ? $type : substr($type, strrpos($type, '.' )+1);	
+    $this->render('common.front_blocks.'.$type.'.'.$current_type_name.'_block_input',array(   
         'model'=>$model,
         'block_model'=>$block_model,
         'form'=>$form

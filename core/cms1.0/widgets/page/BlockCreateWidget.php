@@ -43,13 +43,13 @@ class BlockCreateWidget extends CWidget
         
         $current_type=isset($_GET['type']) ? trim($_GET['type']) : '0';                
         Yii::app()->controller->layout=isset($_GET['embed']) ? 'clean' : 'main';
-        if($current_type!='0'){       
-            
-            $block_ini=parse_ini_file(Yii::getPathOfAlias('common.front_blocks.'.$current_type).DIRECTORY_SEPARATOR.'info.ini');            
-            $model->type=$current_type;
-            
+        if($current_type!='0'){        			$block_ini=parse_ini_file(Yii::getPathOfAlias('common.front_blocks.'.$current_type).DIRECTORY_SEPARATOR.'info.ini');            
             //Include the class            
-            Yii::import('common.front_blocks.'.$current_type.'.'.$block_ini['class']);
+		   	Yii::import('common.front_blocks.'.$current_type.'.'.$block_ini['class']);
+            
+			$model->type=$current_type;
+					
+			
             $block_model=new $block_ini['class']();                        
             
             // collect user input data

@@ -54,23 +54,32 @@ class GxcHelpers {
 	
     
     public static function getAvailableBlocks($render_view=false){
+	
+	
     		$cache_id= $render_view ? 'gxchelpers-available-blocks' : 'gxchelpers-available-blocks-false';
     		$blocks=Yii::app()->cache->get($cache_id);	
 						
-			if($blocks===false){
-				                  
-	            $blocks = array();            
-	            $folders = get_subfolders_name(Yii::getPathOfAlias('common.front_blocks')) ;    
-				
-	            foreach($folders as $folder){
-	                $temp=parse_ini_file(Yii::getPathOfAlias('common.front_blocks.'.$folder.'').DIRECTORY_SEPARATOR.'info.ini');
-					
-					
-	                 if($render_view)
-	                    $blocks[$temp['id']]=$temp['name'];
-	                 else 
-	                    $blocks[$temp['id']]=$temp;
-	            }     
+			if($blocks===false){				                  
+	            $blocks = array();      
+				$rootpath = Yii::getPathOfAlias('common.front_blocks');      
+				$fileinfos = new RecursiveIteratorIterator(
+				    new RecursiveDirectoryIterator($rootpath)
+				);	        
+	    		foreach($fileinfos as $pathname => $fileinfo) {								
+					 if ((!$fileinfo->isFile())) continue;			
+						$type=substr($pathname,-3);
+					if($type=='ini'){							
+						$temp=parse_ini_file($pathname);
+						if($render_view){
+							if($temp['path']!='.')
+								$blocks[$temp['path'].$temp['id']]=$temp['name'];
+							else
+								$blocks[$temp['id']]=$temp['name'];
+						}		                    
+		                 else 
+		                    $blocks[$temp['id']]=$temp;
+					}					    
+				}					
 				Yii::app()->cache->set($cache_id,$blocks,7200);   
 			}
 			            
@@ -84,7 +93,7 @@ class GxcHelpers {
 			$temp=parse_ini_file(Yii::getPathOfAlias('common.storages.'.'').DIRECTORY_SEPARATOR.'info.ini');								
 			$types=array();		
 			foreach ($temp['storages'] as $key=>$value){
-				if(!$get_class)
+				if(!$get_class)				
 					$types[$key]=trim(ucfirst($key));
 				else {
 					$types[$key]=trim($value);

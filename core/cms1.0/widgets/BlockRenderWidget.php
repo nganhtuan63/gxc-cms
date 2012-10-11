@@ -77,7 +77,7 @@ class BlockRenderWidget extends CWidget
 	}
 	
 	public function blockRender($block){
-								$block_ini=parse_ini_file(Yii::getPathOfAlias('common.front_blocks.'.$block->type).DIRECTORY_SEPARATOR.'info.ini');                                                   
+							$block_ini=parse_ini_file(Yii::getPathOfAlias('common.front_blocks.'.$block->type).DIRECTORY_SEPARATOR.'info.ini');                                                   
 		                //Include the class            
 		                Yii::import('common.front_blocks.'.$block->type.'.'.$block_ini['class']);                                        					
 		                if($this->data!=null)
@@ -89,8 +89,9 @@ class BlockRenderWidget extends CWidget
     
     public static function setRenderOutput($obj){                     
             // We will render the layout based on the 
-            // layout                        
-            $render='common.front_blocks.'.$obj->id.'.'.$obj->id.'_block_output';
+            // layout                
+        	$name=(strpos($obj->id,'.')===false) ? $obj->id : substr($obj->id, strrpos($obj->id, '.' )+1);	
+            $render='common.front_blocks.'.$obj->id.'.'.$name.'_block_output';
 			/*Delete for optimize		if(file_exists(Yii::getPathOfAlias('common.front_layouts.'.$obj->page->layout.'.blocks').'/'.$obj->id.'_block_output.php')){                
                 $render='common.front_layouts.'.$obj->page->layout.'.blocks.'.$obj->id.'_block_output';                
             }
