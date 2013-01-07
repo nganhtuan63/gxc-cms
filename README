@@ -1,31 +1,8 @@
+[New GXC-CMS version is available at: https://github.com/nganhtuan63/GXC-CMS-2]
+
 GXC CMS is an open source CMS written on Yii Framework. It has been developed since July 2011 by Tuan Nguyen (http://www.nganhtuan.com) and Tri Nguyen (http://www.tringuyen.me). This CMS can help you to make not only a newspaper specifc website ( Workflow Transfer, History tracking,...) but also a basic social network.
 
 You can check the demo at : http://www.gxccms.com
-
-The CMS is now version 1.0. It has all the features for a basic CMS. If you love PHP and Yii, feel free to join us to make this CMS better.
-
-This CMS uses existed extensions/modules : 
-
-Rights : http://www.yiiframework.com/extension/rights/
-Translate : http://www.yiiframework.com/extension/translate
-Settings : http://www.yiiframework.com/extension/settings
-
-
-Some current features of it:
-
-- Multiple languages ( Content, Categories, Pages,...)
-- Multiple Content types ( Easily define new content type like : article, event....like wordpress posts custom fields but maybe better  )
-- User Management ( Thanks to Rights module )
-- Workflow handle ( Who can create an article, publish or cancel it, transfer to others to review )
-- Multiple layouts support ( Hm,...I should call this theme, learn more with the page management below ) 
-- Pages management : The site can create pages. Ya, a page can have different layouts that are defined abone. In each layout, we can add blocks in slots. The Blocks are ( for example : HTML Block, Content list Block, Menu Block,,...). A new block can be developed easily for backend handle and frontend appearance. 
-- Resource managemen:  This is for upload files to different storages ( to current web folder, Amazon S3,...) 
-
-Missing and going to develope features :
-- Newsletter
-- Ip and visits statistics 
-..... 
-
 
 For starting, please check this link :
 
