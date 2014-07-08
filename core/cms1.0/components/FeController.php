@@ -12,20 +12,19 @@
 class FeController extends RController
 {
 
-		public $description;
-		public $keywords;			
-		public $change_title=false;
+	public $description;
+	public $keywords;			
+	public $change_title=false;
         
-        public function __construct($id,$module=null)
-		{
-			 parent::__construct($id,$module);		 
-	             if(isset($_POST)){
-                     $_POST = GxcHelpers::xss_clean($_POST);
-                 }
-                 if(isset($_GET)){
-                     $_GET = GxcHelpers::xss_clean($_GET);
-                 }
-		}
+        public function __construct($id,$module=null){
+        	parent::__construct($id,$module);		 
+	        if(isset($_POST)){
+                     	$_POST = GxcHelpers::xss_clean($_POST);
+                }
+                if(isset($_GET)){
+                	$_GET = GxcHelpers::xss_clean($_GET);
+                }
+	}
         
         /**
          * Filter by using Modules Rights
